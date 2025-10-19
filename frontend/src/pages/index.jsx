@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import '../css/index.css'; 
 
 
     const handleAddProgram = e => {
@@ -18,17 +19,28 @@ import { useEffect, useState } from "react";
         })
     }
 
+    
+
+
+
+
+
 
 export default function Index() {
   return  <>
 
+        {/* className="border-t-2 border-blue-500 mt-2 pt-2"  */}
 
-          <form className="border-t-2 border-blue-500 mt-2 pt-2" action="" onSubmit={e => handleAddProgram(e)}>
-            <div><input className ="border border-gray-300" value="" onChange={(e) => setAddProgramForm({...addProgramForm, name : e.target.value})} type="text" name="nom-programme"></input></div>
-            <div><input className="border border-gray-300" value="" onChange={(e) => setAddProgramForm({...addProgramForm, code : e.target.value})}  type="text" name="code-programme"></input></div>
-          </form>
+            <form className="rounded-lg"action="" onSubmit={e => handleAddProgram(e)}>
+                {/* <h1>MÉTRO</h1> */}
+                <img class="image" src="../src/assets/STM.svg"></img>
+                <div class="text"><input placeholder="Nom d'utilisateur" type="text" name="nom-programme"></input></div>
+                <div class="text"><input placeholder="Mot de passe"       value="" onChange={(e) => setAddProgramForm({...addProgramForm, code : e.target.value})}  type="text" name="code-programme"></input></div>
+                <div class="validate"><input type="submit" value="Valider"></input></div>
+            </form>
 
-          </>
+            {/* className ="border border-gray-300" value="" onChange={(e) => setAddProgramForm({...addProgramForm, name : e.target.value})} */}
+        </>
 
           
 }

@@ -1,0 +1,58 @@
+/* Source :  https://www.onlinewebfonts.com/download/731dca6235df7181ef516af57ba62b5d */
+@font-face {
+    font-family: "TransitWeb-Bold W03 Regular";
+    src: url("https://db.onlinewebfonts.com/t/731dca6235df7181ef516af57ba62b5d.eot");
+    src: url("https://db.onlinewebfonts.com/t/731dca6235df7181ef516af57ba62b5d.eot?#iefix")format("embedded-opentype"),
+    url("https://db.onlinewebfonts.com/t/731dca6235df7181ef516af57ba62b5d.woff2")format("woff2"),
+    url("https://db.onlinewebfonts.com/t/731dca6235df7181ef516af57ba62b5d.woff")format("woff"),
+    url("https://db.onlinewebfonts.com/t/731dca6235df7181ef516af57ba62b5d.ttf")format("truetype"),
+    url("https://db.onlinewebfonts.com/t/731dca6235df7181ef516af57ba62b5d.svg#TransitWeb-Bold W03 Regular")format("svg");
+}
+
+html {
+    background-color: rgb(20, 20, 20);
+    font-family: "TransitWeb-Bold W03 Regular", "Arial", sans-serif;
+}
+
+.text {
+    color: white;
+    font-size: 1.3rem;
+}
+
+
+img {
+    width: 11em;
+    padding-bottom: 1em;
+    margin: auto;
+}
+
+form {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    background-color: rgb(15, 15, 15);
+    padding: 2em;
+}
+
+.text {
+    margin: 0.5vw 5vh;
+} 
+
+.validate  { 
+    margin: 5% auto;
+    transition-duration: 0.4s;
+    width: 75%;
+    color: rgb(15, 15, 15);
+    text-align: center;
+    font-size: 1.3rem;
+    background-color: white;
+}
+
+.validate:hover {
+    color: white;
+    background-color:rgb(15, 15, 15);
+}
