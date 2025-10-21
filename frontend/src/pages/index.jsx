@@ -19,18 +19,11 @@ import '../css/index.css';
         })
     }
 
-    
-
-
-
-
-
 
 export default function Index() {
   return  <>
 
         {/* className="border-t-2 border-blue-500 mt-2 pt-2"  */}
-
             <form className="rounded-lg"action="" onSubmit={e => handleAddProgram(e)}>
                 {/* <h1>MÉTRO</h1> */}
                 <img class="image" src="../src/assets/STM.svg"></img>
