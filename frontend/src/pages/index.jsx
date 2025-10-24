@@ -6,7 +6,7 @@ import '../css/index.css';
         e.preventDefault(); // empeche d'envoyer le formulaire NO REFRESH
         let formData = new FormData();
         formData.append("name",  addProgramForm.name); // $_POST["name"]
-        formData.append("code",  addProgramForm.code); // $_POST["code"]
+        formData.append("mdp",  addProgramForm.mdp); // $_POST["code"]
         
         fetch("/api/add-programList.php", {
             method : "POST",
@@ -15,7 +15,7 @@ import '../css/index.css';
         .then (response => response.json())
         .then(data => {
             // reponse du serveur, affiche un message de succes / erreur
-
+            console.log("test")
         })
     }
 
@@ -28,7 +28,7 @@ export default function Index() {
                 {/* <h1>MÉTRO</h1> */}
                 <img class="image" src="../src/assets/STM.svg"></img>
                 <div class="text"><input placeholder="Nom d'utilisateur" type="text" name="nom-programme"></input></div>
-                <div class="text"><input placeholder="Mot de passe"       value="" onChange={(e) => setAddProgramForm({...addProgramForm, code : e.target.value})}  type="text" name="code-programme"></input></div>
+                <div class="text"><input placeholder="Mot de passe" value="" onChange={(e) => setAddProgramForm({...addProgramForm, code : e.target.value})}  type="text" name="mdp"></input></div>
                 <div class="validate"><input type="submit" value="Valider"></input></div>
             </form>
 
