@@ -14,14 +14,31 @@
 			$data["password"] = $_POST["password"];
 			
 			$result = parent::callAPI("signin", $data);
+
 			if ($result == "INVALID_USERNAME_PASSWORD") {
-				echo "Erreur : Nom d'utilisateur ou le mot de passe ne fonctionne pas";
+				$response = [
+					"success" => false,
+					"error" => "Informations invalides"
+				];
+			}
+
+			else if (isset($result->key)) {
+				$response = [
+					"success" => true,
+					"key" => $result->key
+				];
 			}
 			else {
-				var_dump($result); // Pour voir les informations retournées
-				exit;
-				$key = $result->key;
+				$response = [
+					"success" => false,
+					"error" => "Erreur inconnue"
+				];
 			}
+		
+			header("Content-Type: application/json");
+			echo json_encode($response);
+			exit;
 		}
+
 
     }

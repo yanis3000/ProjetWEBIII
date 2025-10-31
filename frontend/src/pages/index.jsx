@@ -1,15 +1,18 @@
 import { useEffect, useState } from "react";
 import '../css/index.css'; 
+import { data } from "react-router";
+import { useNavigate } from "react-router";
 
 export default function Programs({}) {
     const [addProgramForm, setAddProgramForm] = useState({
-        name : "",
-        code : "",
+        username : "",
+        password : "",
     });
-    const [programList, setProgramList] = useState(null);
-    const [programType, setProgramType] = useState("techniques");
+    const [connectionError, validation] = useState(null);
+    const navigate = useNavigate();
 
-    // Code exécuté à chaque changement de valeur pour la variable programType
+
+    // // Code exécuté à chaque changement de valeur pour la variable programType
     // useEffect(() => {
     //     if (programType == "techniques") {
     //         fetch("/api/programs.php")
@@ -27,11 +30,17 @@ export default function Programs({}) {
         formData.append("username",  addProgramForm.username); // $_POST["name"]
         formData.append("password",  addProgramForm.password); // $_POST["code"]
         
-        fetch("/api/login.php", {
-            method : "POST",
-            body : formData
-        })
-        .then (response => response.json())
+        // fetch("/api/login.php", {
+        //     method : "POST",
+        //     body : formData
+        // })
+        // .then (response => response.json())
+        // .then(data => {
+        //     if (data.success) {
+        //         console.log("test")
+        //         // navigate("/form")
+        //     }
+        // })
     }
 
     return <>
