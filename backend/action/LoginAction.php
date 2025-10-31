@@ -10,19 +10,18 @@
 
 		protected function executeAction() {
 			$data = [];
-			$data["username"] = "yanimosoruz";
-			$data["password"] = "Jesuiscool123";
+			$data["username"] = $_POST["username"];
+			$data["password"] = $_POST["password"];
 			
 			$result = parent::callAPI("signin", $data);
 			if ($result == "INVALID_USERNAME_PASSWORD") {
-			// err 
-			echo "erreur";
+				echo "Erreur : Nom d'utilisateur ou le mot de passe ne fonctionne pas";
 			}
 			else {
 				var_dump($result); // Pour voir les informations retournées
 				exit;
-			$key = $result->key;
-}
+				$key = $result->key;
+			}
 		}
 
     }
