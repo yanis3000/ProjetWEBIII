@@ -3,6 +3,7 @@ import '../css/index.css';
 import { data } from "react-router";
 import { useNavigate } from "react-router";
 
+
 export default function Programs({}) {
     const [addProgramForm, setAddProgramForm] = useState({
         username : "",
@@ -30,17 +31,17 @@ export default function Programs({}) {
         formData.append("username",  addProgramForm.username); // $_POST["name"]
         formData.append("password",  addProgramForm.password); // $_POST["code"]
         
-        // fetch("/api/login.php", {
-        //     method : "POST",
-        //     body : formData
-        // })
-        // .then (response => response.json())
-        // .then(data => {
-        //     if (data.success) {
-        //         console.log("test")
-        //         // navigate("/form")
-        //     }
-        // })
+        fetch("/api/login.php", {
+            method : "POST",
+            body : formData
+        })
+        .then (response => response.json())
+        .then(data => {
+            if (data.success) {
+                console.log("test")
+                navigate("/form")
+            }
+        })
     }
 
     return <>
