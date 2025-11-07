@@ -38,8 +38,9 @@ export default function Programs({}) {
         .then (response => response.json())
         .then(data => {
             if (data.success) {
-                console.log("test")
-                navigate("/form")
+                localStorage.setItem("key", data.key);
+                console.log("Connexion réussie !")
+                navigate("/form");
             }
         })
     }
@@ -54,6 +55,11 @@ export default function Programs({}) {
                 <div className="text"><input placeholder="Mot de passe" value={addProgramForm.password} onChange={(e) => setAddProgramForm({...addProgramForm, password : e.target.value})}  type="password" name="password"></input></div>
                 <div className="validate"><input type="submit" value="Valider"></input></div>
             </form>
+
+            {/* {data.map(d=>(
+                da
+            ))
+            } */}
 
             {/* className ="border border-gray-300" value="" onChange={(e) => setAddProgramForm({...addProgramForm, name : e.target.value})} */}
         </>

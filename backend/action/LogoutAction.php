@@ -2,7 +2,7 @@
     require_once("action/CommonAction.php");
     require_once("action/DAO/LoginDAO.php");
 
-    class LoginAction extends CommonAction {
+    class LogoutAction extends CommonAction {
 
 		public function __construct() {
 			parent::__construct(CommonAction::$VISIBILITY_PUBLIC);
@@ -21,13 +21,6 @@
 				];
 			}
 
-			// else if (isset($result->key)) {
-			// 	$response = [
-			// 		"success" => true,
-			// 		"key" => $result->key
-			// 	];
-			// }
-            
 			else if ($result == "SIGNED_OUT") {
 				$response = [
 					"success" => true,

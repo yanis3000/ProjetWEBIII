@@ -1,8 +1,8 @@
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter, Route, Routes } from "react-router";
 import './css/global.css'; // Créer le fichier, si vous voulez
-import Index from './pages';
-import Form from './pages'
+import Index from './pages/index.jsx';
+import Form from './pages/form.jsx'
 
 createRoot(document.getElementById('root')).render(
     <BrowserRouter>
