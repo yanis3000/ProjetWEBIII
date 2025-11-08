@@ -1,8 +1,8 @@
 <?php
     require_once("action/CommonAction.php");
-    require_once("action/DAO/LoginDAO.php");
+    // require_once("action/DAO/LoginDAO.php");
 
-    class LoginAction extends CommonAction {
+    class GameAction extends CommonAction {
 
 		public function __construct() {
 			parent::__construct(CommonAction::$VISIBILITY_PUBLIC);
@@ -15,24 +15,33 @@
 			
 			$result = parent::callAPI("games/auto-match", $data);
 
-			if ($result == "JOINED_PVP" || $result="JOINED_TRAINING") {
-				// $response = [
-				// 	"success" => false,
-				// 	"error" => "Veuillez mettre la bonne clé pour continuer"
-				// ];
-			}
-
-			// else if (isset($result->key)) {
-			// 	$response = [
-			// 		"success" => true,
-			// 		"key" => $result->key
-			// 	];
-			// }
-            
-			else if ($result == "INVALID_KEY" || $result == "INVALID_GAME_TYPE") {
+			if ($result == "JOINED_PVP") {
 				$response = [
 					"success" => true,
-					"key" => $result->NULL
+					"key" => $data["key"],
+					"type" => "pvp"
+				];
+			}
+
+			else if ($result="JOINED_TRAINING") {
+				$response = [
+					"success" => true,
+					"key" => $data["key"],
+					"type" => "training"
+				];
+			}
+            
+			else if ($result == "INVALID_KEY") {
+				$response = [
+					"success" => false,
+					"error" => "Clé invalide"
+				];
+			}
+
+			else if ($result == "INVALID_GAME_TYPE") {
+				$response = [
+					"success" => false,
+					"error" => "Type de jeu invalide"
 				];
 			}
 

@@ -1,7 +1,7 @@
 <?php
     require_once("action/DAO/Connection.php");
     
-    class LoginDAO {
+    class LogoutDAO {
 
         public static function getAnswers() {
             // Abstraction de BD

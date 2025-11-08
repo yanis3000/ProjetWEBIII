@@ -6,7 +6,24 @@ import MainButton from '../components/button';
 
 
 
-export default function Form() {
+export default function Game() {
+
+    const fetchState = () => {
+        fetch("/api/game-state.php")
+        .then(response => response.json())
+        .then(response => {
+            console.log(response) // <-- État du jeu, ou message comme : LAST_GAME_WON
+            stateTimeout.current = setTimeout(fetchState, 2000);
+        });
+    }
+	
+    useEffect(() => {
+        stateTimeout.current = setTimeout(fetchState, 1000);
+
+        return () => {
+            if (stateTimeout.current) clearTimeout(stateTimeout.current);
+        }
+    }, []);
 
     const navigate = useNavigate();
 
@@ -34,16 +51,13 @@ export default function Form() {
       
   }
 
+
+
   return (
     <>
-      <p>Vous êtes enfin connecté !</p>
+      <p>Vous êtes dans la partie !</p>
 
-      <MainButton onClick={e => handleAddProgram(e)}> Déconnexion </MainButton>
-      <MainButton onClick={e => handleAddProgram(e)}> PvE </MainButton>
-      <MainButton onClick={e => handleAddProgram(e)}> PvP </MainButton>
-
-
-      <iframe width={700} height={240} src={`https://magix.apps-de-cours.com/server/chat/${localStorage.getItem("key")}`}> </iframe>
+      <MainButton onClick={e => handleAddProgram(e)}>  </MainButton>
 
     </>
   );
