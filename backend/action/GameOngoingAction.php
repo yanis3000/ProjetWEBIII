@@ -16,7 +16,7 @@
             $data["targetuid"] = $_POST["targetuid"];
 
 			
-			$result = parent::callAPI("games/auto-match", $data);
+			$result = parent::callAPI("games/action", $data);
 
 			if ($result == "INVALID_KEY") {
 				$response = [
