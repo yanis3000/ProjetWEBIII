@@ -15,6 +15,7 @@ export default function Form() {
         e.preventDefault(); 
         let formData = new FormData();
         formData.append("key",  localStorage.getItem("key"));
+        formData.append("type",  );
             
         fetch("/api/logout.php", {
             method : "POST",
@@ -34,11 +35,12 @@ export default function Form() {
         
     }
 
-      const pveGame = e => {
+      const pveGame = (e, type) => {
 
         e.preventDefault(); 
         let formData = new FormData();
         formData.append("key",  localStorage.getItem("key"));
+        formData.append("type", type)
             
         fetch("/api/game.php", {
             method : "POST",
@@ -46,7 +48,7 @@ export default function Form() {
             })
             .then (response => response.json())
             .then(data => {
-              if (data.success && data.type == "training") {
+              if (data.success) {
                 console.log(data.type);
                 navigate("/game")
               }
@@ -57,11 +59,12 @@ export default function Form() {
         
     }
 
-      const pvpGame = e => {
+      const pvpGame = (e, type) => {
 
         e.preventDefault(); // empeche d'envoyer le formulaire NO REFRESH
         let formData = new FormData();
         formData.append("key",  localStorage.getItem("key")); // $_POST["name"]
+        formData.append("type", type)
             
         fetch("/api/game.php", {
             method : "POST",
@@ -69,7 +72,7 @@ export default function Form() {
             })
             .then (response => response.json())
             .then(data => {
-              if (data.success && data.type == "pvp") {
+              if (data.success) {
                 console.log(data.type);
                 navigate("/game")
               }
@@ -85,13 +88,13 @@ export default function Form() {
       <p>Vous êtes enfin connecté !</p>
 
       <MainButton onClick={e => deconnectionGame(e)}> Déconnexion </MainButton>
-      <MainButton onClick={e => pveGame(e)}> PvE </MainButton>
-      <MainButton onClick={e => pvpGame(e)}> PvP </MainButton>
+      <MainButton onClick={e => pveGame(e, "training")}> PvE </MainButton>
+      <MainButton onClick={e => pvpGame(e, "pvp")}> PvP </MainButton>
 
 
       <iframe width={700} height={240} src={`https://magix.apps-de-cours.com/server/chat/${localStorage.getItem("key")}`}> </iframe>
 
-      <iframe src={`"https://magix.apps-de-cours.com/server/deck/${localStorage.getItem("key")}`}></iframe>
+      {/* <iframe src={`"https://magix.apps-de-cours.com/server/deck/${localStorage.getItem("key")}`}></iframe> */}
     </>
   );
 }
