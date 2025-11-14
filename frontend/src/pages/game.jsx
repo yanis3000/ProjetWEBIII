@@ -28,13 +28,13 @@ export default function Game() {
 
     const navigate = useNavigate();
 
-    const handleAddProgram = e => {
+    const handleGameAction = e => {
 
     e.preventDefault(); // empeche d'envoyer le formulaire NO REFRESH
     let formData = new FormData();
     formData.append("key",  localStorage.getItem("key")); // $_POST["name"]
         
-    fetch("/api/login.php", {
+    fetch("/api/gameOngoing.php", {
         method : "POST",
         body : formData
         })
@@ -45,6 +45,8 @@ export default function Game() {
                 console.log("Retour au lobby")
                 navigate("/form");
             }
+            
+
         })
       
   }
@@ -52,8 +54,6 @@ export default function Game() {
   return (
     <>
       <p>Vous êtes dans la partie !</p>
-
-      <MainButton onClick={e => handleAddProgram(e)}> Retour au lobby  </MainButton>
 
     </>
   );
