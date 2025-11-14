@@ -4,4 +4,4 @@
 	$action = new LoginAction();
 	$data = $action->execute();
 
-	var_dump($data);
+	echo json_encode($data);

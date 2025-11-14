@@ -39,10 +39,10 @@ export default function Game() {
     <>
       <p>Vous êtes dans la partie !</p>
 
-      {/* <MainButton>END TURN</MainButton>
+      <MainButton>END TURN</MainButton>
       <MainButton>SURRENDER</MainButton>
       <MainButton>HERO POWER</MainButton>
-      <MainButton>PLAY</MainButton> */}
+      <MainButton>PLAY</MainButton>
     </>
   );
 }
