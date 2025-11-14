@@ -11,10 +11,12 @@ export default function Game() {
 	
   const fetchState = () => {
       let formData = new FormData();
-
       formData.append("key",  localStorage.getItem("key"));
 
-      fetch("/api/gameState.php")
+      fetch("/api/gameState.php", {
+            method : "POST",
+            body : formData
+          })
        .then(response => response.json())
        .then(response => {
            console.log(response) // <-- État du jeu, ou message comme : LAST_GAME_WON
@@ -37,10 +39,10 @@ export default function Game() {
     <>
       <p>Vous êtes dans la partie !</p>
 
-      <MainButton>END TURN</MainButton>
+      {/* <MainButton>END TURN</MainButton>
       <MainButton>SURRENDER</MainButton>
       <MainButton>HERO POWER</MainButton>
-      <MainButton>PLAY</MainButton>
+      <MainButton>PLAY</MainButton> */}
     </>
   );
 }

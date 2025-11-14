@@ -19,15 +19,15 @@
 				$response = [
 					"success" => true,
 					"key" => $data["key"],
-					"type" => "pvp"
+					"type" => "PVP"
 				];
 			}
 
-			else if ($result="JOINED_TRAINING") {
+			else if ($result == "JOINED_TRAINING") {
 				$response = [
 					"success" => true,
 					"key" => $data["key"],
-					"type" => "training"
+					"type" => "TRAINING"
 				];
 			}
             

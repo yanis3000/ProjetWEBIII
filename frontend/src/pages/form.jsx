@@ -88,8 +88,8 @@ export default function Form() {
       <p>Vous êtes enfin connecté !</p>
 
       <MainButton onClick={e => deconnectionGame(e)}> Déconnexion </MainButton>
-      <MainButton onClick={e => pveGame(e, "training")}> PvE </MainButton>
-      <MainButton onClick={e => pvpGame(e, "pvp")}> PvP </MainButton>
+      <MainButton onClick={e => pveGame(e, "TRAINING")}> PvE </MainButton>
+      <MainButton onClick={e => pvpGame(e, "PVP")}> PvP </MainButton>
 
 
       <iframe width={700} height={240} src={`https://magix.apps-de-cours.com/server/chat/${localStorage.getItem("key")}`}> </iframe>
