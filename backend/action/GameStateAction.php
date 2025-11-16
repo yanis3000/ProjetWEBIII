@@ -16,6 +16,8 @@
 
 			return compact("result");
 
+		// cause we never know !
+
 		// 	if ($result == "WAITING") {
 		// 		$response = [
 		// 			"ongoing" => "WAITING",

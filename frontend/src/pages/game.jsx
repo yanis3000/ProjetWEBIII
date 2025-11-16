@@ -7,6 +7,8 @@ import MainButton from '../components/button';
 
 export default function Game() {
 
+  const [heroClass, setHeroClass] = useState(null);
+  const [remainingTurnTime, setRemainingTurnTime] = useState(null);
   const stateTimeout = useRef(null);
 	
   const fetchState = () => {
@@ -19,7 +21,9 @@ export default function Game() {
           })
        .then(response => response.json())
        .then(response => {
-           console.log(response) // <-- État du jeu, ou message comme : LAST_GAME_WON
+          setHeroClass(response.result.heroClass); 
+          setRemainingTurnTime(response.result.remainingTurnTime); 
+          console.log(response) // <-- État du jeu, ou message comme : LAST_GAME_WON
            stateTimeout.current = setTimeout(fetchState, 2000);
        });
   }
@@ -34,10 +38,11 @@ export default function Game() {
 
     const navigate = useNavigate();
 
-
   return (
     <>
       <p>Vous êtes dans la partie !</p>
+      <p>{heroClass}</p>
+      <p>{remainingTurnTime}</p>
 
       <MainButton>END TURN</MainButton>
       <MainButton>SURRENDER</MainButton>
