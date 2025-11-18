@@ -3,6 +3,7 @@ import '../css/global.css';
 import '../css/lobby.css'; 
 import { data, useNavigate } from "react-router"; 
 import MainButton from '../components/button'; 
+import Cards from '../components/cards'; 
 
 
 
@@ -90,6 +91,8 @@ export default function Form() {
       <MainButton onClick={e => deconnectionGame(e)}> Déconnexion </MainButton>
       <MainButton onClick={e => pveGame(e, "TRAINING")}> PvE </MainButton>
       <MainButton onClick={e => pvpGame(e, "PVP")}> PvP </MainButton>
+
+      <Cards texte="test"></Cards>
 
 
       <iframe width={700} height={240} src={`https://magix.apps-de-cours.com/server/chat/${localStorage.getItem("key")}`}> </iframe>
