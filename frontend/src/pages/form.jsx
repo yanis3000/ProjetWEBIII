@@ -92,7 +92,7 @@ export default function Form() {
       <MainButton onClick={e => pveGame(e, "TRAINING")}> PvE </MainButton>
       <MainButton onClick={e => pvpGame(e, "PVP")}> PvP </MainButton>
 
-      <Cards texte="test"></Cards>
+      <Cards texte="test" description="description"></Cards>
 
 
       <iframe width={700} height={240} src={`https://magix.apps-de-cours.com/server/chat/${localStorage.getItem("key")}`}> </iframe>
