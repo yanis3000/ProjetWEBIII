@@ -22,10 +22,12 @@ export default function Game() {
   const [oppAttack,setOppAttack] = useState(null)
   const [oppMechanics,setOppMechanics] = useState(null)
 
+  const [oppCards, setOppCards] = useState([]);
+
+
 
   const stateTimeout = useRef(null);
 
-  let oppCards = []
 
   const fetchState = () => {
       let formData = new FormData();
@@ -48,23 +50,20 @@ export default function Game() {
           }
 
           if (response.result.opponent && response.result.opponent.board) {
+              const list = response.result.opponent.board.map(card => ({
+                id: card.id,
+                cost: card.cost,
+                hp: card.hp,
+                atk: card.atk,
+                mechanics: card.mechanics
+              }));
 
-          for (let i = 0; i < response.result.opponent.board.length; i++) {         
-            
-            oppCards.push(
-              setOppID(response.result.opponent.board[i].id),
-              setOppCost(response.result.opponent.board[i].cost),
-              setOppHP(response.result.opponent.board[i].hp),
-              setOppAttack(response.result.opponent.board[i].atk),
-              setOppMechanics(response.result.opponent.board[i].mechanics[0])
-              )
-        
-            }
+              setOppCards(list); // <-- MISE À JOUR PROPRE
           }
 
           setRemainingTurnTime(response.result.remainingTurnTime); 
           console.log(response) // <-- État du jeu, ou message comme : LAST_GAME_WON
-           stateTimeout.current = setTimeout(fetchState, 2000);
+          stateTimeout.current = setTimeout(fetchState, 2000);
        });
   }
 
@@ -89,15 +88,16 @@ export default function Game() {
       <p>{oppUsername}</p>
       <p>{oppHeroClass}</p>
 
-
+      {oppCards.map((card) => (
+        <div key={card.id}>
+          <p>ID : {card.id}</p>
+          <p>ATK : {card.atk}</p>
+          <p>HP : {card.hp}</p>
+          <p>Cost : {card.cost}</p>
+          <p>Mechanics : {card.mechanics.join("\n")}</p>
+        </div>
+      ))}
       
-      
-
-      <p>{oppID}</p>
-      <p>{oppCost}</p>
-      <p>{oppHP}</p>
-      <p>{oppAttack}</p>
-      <p>{oppMechanics}</p>
 
 
 
