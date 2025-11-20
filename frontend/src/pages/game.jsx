@@ -10,22 +10,11 @@ export default function Game() {
   const [heroClass, setHeroClass] = useState(null);
   const [remainingTurnTime, setRemainingTurnTime] = useState(null);
 
-
-
   // Tout ce qui est relatif à l'ennemi
   const [oppUsername,setOppUsername] = useState(null)
   const [oppHeroClass,setOppHeroClass] = useState(null)
-  
-  const [oppID,setOppID] = useState(null)
-  const [oppCost,setOppCost] = useState(null)
-  const [oppHP,setOppHP] = useState(null)
-  const [oppAttack,setOppAttack] = useState(null)
-  const [oppMechanics,setOppMechanics] = useState(null)
 
-  const [oppCards, setOppCards] = useState([]);
-
-
-
+  const [oppCards, setOppCards] = useState([]); // pour faire une liste nulle
   const stateTimeout = useRef(null);
 
 
@@ -98,10 +87,6 @@ export default function Game() {
         </div>
       ))}
       
-
-
-
-
 
       <MainButton>END TURN</MainButton>
       <MainButton>SURRENDER</MainButton>

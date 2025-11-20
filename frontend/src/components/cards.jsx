@@ -11,7 +11,6 @@ export default function MyCard({texte = "", description="", hp="", atk="", cost=
           src={"https://upload.wikimedia.org/wikipedia/commons/3/3a/Cat03.jpg"} // assigner une image apres 
           alt={"Pas d'image assignée"} 
           style={{ width: '200px', height: '200px'}} />
-        <p className='name'>{texte}</p>
         <p className="description">{description}</p>
 
         <div className='state'>
