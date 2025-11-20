@@ -9,8 +9,24 @@ export default function Game() {
 
   const [heroClass, setHeroClass] = useState(null);
   const [remainingTurnTime, setRemainingTurnTime] = useState(null);
+
+
+
+  // Tout ce qui est relatif à l'ennemi
+  const [oppUsername,setOppUsername] = useState(null)
+  const [oppHeroClass,setOppHeroClass] = useState(null)
+  
+  const [oppID,setOppID] = useState(null)
+  const [oppCost,setOppCost] = useState(null)
+  const [oppHP,setOppHP] = useState(null)
+  const [oppAttack,setOppAttack] = useState(null)
+  const [oppMechanics,setOppMechanics] = useState(null)
+
+
   const stateTimeout = useRef(null);
-	
+
+  let oppCards = []
+
   const fetchState = () => {
       let formData = new FormData();
       formData.append("key",  localStorage.getItem("key"));
@@ -21,7 +37,31 @@ export default function Game() {
           })
        .then(response => response.json())
        .then(response => {
-          setHeroClass(response.result.heroClass); 
+
+          if (response.result) {
+            setHeroClass(response.result.heroClass); 
+          }
+
+          if (response.result.opponent) {
+            setOppUsername(response.result.opponent.username)
+            setOppHeroClass(response.result.opponent.heroClass)
+          }
+
+          if (response.result.opponent && response.result.opponent.board) {
+
+          for (let i = 0; i < response.result.opponent.board.length; i++) {         
+            
+            oppCards.push(
+              setOppID(response.result.opponent.board[i].id),
+              setOppCost(response.result.opponent.board[i].cost),
+              setOppHP(response.result.opponent.board[i].hp),
+              setOppAttack(response.result.opponent.board[i].atk),
+              setOppMechanics(response.result.opponent.board[i].mechanics[0])
+              )
+        
+            }
+          }
+
           setRemainingTurnTime(response.result.remainingTurnTime); 
           console.log(response) // <-- État du jeu, ou message comme : LAST_GAME_WON
            stateTimeout.current = setTimeout(fetchState, 2000);
@@ -40,9 +80,28 @@ export default function Game() {
 
   return (
     <>
-      <p>Vous êtes dans la partie !</p>
+      <h1 style={{color:"red"}} >Vous êtes dans la partie !</h1>
       <p>{heroClass}</p>
       <p>{remainingTurnTime}</p>
+
+      <h1 style={{color:"red"}}>Opposant</h1>
+
+      <p>{oppUsername}</p>
+      <p>{oppHeroClass}</p>
+
+
+      
+      
+
+      <p>{oppID}</p>
+      <p>{oppCost}</p>
+      <p>{oppHP}</p>
+      <p>{oppAttack}</p>
+      <p>{oppMechanics}</p>
+
+
+
+
 
       <MainButton>END TURN</MainButton>
       <MainButton>SURRENDER</MainButton>
