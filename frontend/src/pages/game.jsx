@@ -54,7 +54,9 @@ export default function Game() {
           })
        .then(response => response.json())
        .then(response => {
+          if (response.success == false){
             console.log(response.errorMessage)
+          }
         }
        )   
     }
@@ -196,10 +198,10 @@ export default function Game() {
         </div>  
           
         <div className="buttonControl">
-          <MainButton onClick={fetchOnGoingGame("END_TURN")}>END TURN</MainButton> {/* il faudra faire une connection apres */} 
-          <MainButton>SURRENDER</MainButton>
-          <MainButton>HERO POWER</MainButton>
-          <MainButton>PLAY</MainButton>
+          <MainButton onClick={() => fetchOnGoingGame("END_TURN")}>END TURN</MainButton> {/* il faut faire une arrow function pour que ca le fasse que pendant que ca clique */} 
+          <MainButton onClick={() => fetchOnGoingGame("SURRENDER")}>SURRENDER</MainButton>
+          <MainButton onClick={() => fetchOnGoingGame("HERO_POWER")}>HERO POWER</MainButton>
+          <MainButton onClick={() => fetchOnGoingGame("PLAY")}>PLAY</MainButton>
         </div>
       </div>
 

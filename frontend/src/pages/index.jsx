@@ -37,10 +37,12 @@ export default function Programs({}) {
         })
         .then (response => response.json())
         .then(data => {
-            if (data.success) {
+            console.log(data);
+            if (data.success === true) {
                 localStorage.setItem("key", data.key);
-                console.log("Connexion réussie !")
                 navigate("/form");
+            } else {
+                console.log("Erreur :", data.error);
             }
         })
     }

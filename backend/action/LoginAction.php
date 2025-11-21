@@ -9,7 +9,6 @@
 		}
 
 		protected function executeAction() {
-			$data = [];
 			$data["username"] = $_POST["username"];
 			$data["password"] = $_POST["password"];
 			
@@ -35,9 +34,8 @@
 				];
 			}
 		
-			header("Content-Type: application/json");
-			echo json_encode($response);
-			exit;
+			return $response;
+
 		}
 
 
