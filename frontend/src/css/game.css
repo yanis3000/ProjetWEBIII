@@ -1,0 +1,17 @@
+.infoOpp {
+    display: flex;
+    justify-content:space-around;
+
+}
+
+.deckOpp {
+    display: flex;
+    justify-content: center;
+    gap : 1em
+}
+
+.buttonControl {
+    display: flex;
+    flex-direction: column;
+
+}
