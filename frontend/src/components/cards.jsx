@@ -15,7 +15,6 @@ export default function MyCard({description="", hp="", atk="", cost=""}) {
         </div>
 
         <p className="description">{description}</p>
-
         <div className='state'>
           <p className='attack'>{atk}</p>
           <p className='cost'>{cost}</p>

@@ -31,13 +31,38 @@ export default function Game() {
   const [selfHandSize,setSelfHandSize] = useState(null)
   const [selfRemainingCardsCount, setSelfRemainingCardsCount] = useState(null)
 
+  const [selfCard,setSelfCard] = useState(null) // pour mettre la carte que l'on va jouer
+
   const stateTimeout = useRef(null);
 
 
-    const deconnectionGame = e => {
-        e.preventDefault(); 
+    // const deconnectionGame = e => {
+    //     e.preventDefault(); 
+    // }
+
+    
+    const fetchOnGoingGame = (param, uid="", targetuid="") => {
+      let formData = new FormData();
+      formData.append("key",  localStorage.getItem("key"));
+      formData.append("type", param);
+      formData.append("uid", uid);
+      formData.append("targetuid", targetuid);
+
+      fetch("/api/gameOngoing.php", {
+            method : "POST",
+            body : formData
+          })
+       .then(response => response.json())
+       .then(response => {
+            console.log(response.errorMessage)
+        }
+       )   
     }
 
+    const handleClick = (uid) => {
+        setSelfCard(uid)
+        console.log("Carte en cours : " + {uid})
+    }
 
   const fetchState = () => {
       let formData = new FormData();
@@ -62,6 +87,7 @@ export default function Game() {
 
           if (response.result && response.result.hand) {
               const list = response.result.hand.map(card => ({
+                uid: card.uid,
                 id: card.id,
                 cost: card.cost,
                 hp: card.hp,
@@ -69,12 +95,12 @@ export default function Game() {
                 mechanics: card.mechanics
               }));
 
-              setBoardCards(list); // <-- MISE À JOUR PROPRE
-
+              setBoardCards(list);
             }
 
             if (response.result && response.result.board) {
               const list = response.result.board.map(card => ({
+                uid: card.uid,
                 id: card.id,
                 cost: card.cost,
                 hp: card.hp,
@@ -82,7 +108,7 @@ export default function Game() {
                 mechanics: card.mechanics
               }));
 
-              setHandCards(list); // <-- MISE À JOUR PROPRE
+              setHandCards(list);
 
             }
 
@@ -97,6 +123,7 @@ export default function Game() {
 
           if (response.result.opponent && response.result.opponent.board) {
               const list = response.result.opponent.board.map(card => ({
+                uid: card.uid,
                 id: card.id,
                 cost: card.cost,
                 hp: card.hp,
@@ -106,6 +133,8 @@ export default function Game() {
 
               setOppCards(list); // <-- MISE À JOUR PROPRE
           }
+
+
 
           setRemainingTurnTime(response.result.remainingTurnTime); 
           console.log(response) // <-- État du jeu, ou message comme : LAST_GAME_WON
@@ -141,33 +170,33 @@ export default function Game() {
       </div>
 
       <div className="deckOpp">
-        {oppCards.map((card) => (
-          <div key={card.id}>
-          <Cards description={card.mechanics.join("\n")} hp={card.hp} atk={card.atk} cost={card.cost}></Cards>
+        {oppCards.map((cardOpp) => (
+          <div key={cardOpp.uid}>
+          <Cards description={cardOpp.mechanics.join("\n")} hp={cardOpp.hp} atk={cardOpp.atk} cost={cardOpp.cost}></Cards>
           </div>
         ))}
       </div>  
         {/* <h1 style={{color:"red"}}>Opposant</h1> */}
 
         <div className="deckOpp">
-          {boardCards.map((card) => (
-            <div key={card.id}>
-            <Cards description={card.mechanics.join("\n")} hp={card.hp} atk={card.atk} cost={card.cost}></Cards>
+          {boardCards.map((cardBoard) => (
+            <div key={cardBoard.uid}>
+            <Cards description={cardBoard.mechanics.join("\n")} hp={cardBoard.hp} atk={cardBoard.atk} cost={cardBoard.cost}></Cards>
             </div>
           ))}
         </div>  
 
       <div className="deckOpp">
         <div className="deckOpp">
-          {handCards.map((card) => (
-            <div key={card.id}>
-            <Cards description={card.mechanics.join("\n")} hp={card.hp} atk={card.atk} cost={card.cost}></Cards>
+          {handCards.map((cardHand) => (
+            <div key={cardHand.uid} onClick={() => handleClick({key})}>
+            <Cards description={cardHand.mechanics.join("\n")} hp={cardHand.hp} atk={cardHand.atk} cost={cardHand.cost}></Cards>
             </div>
           ))}
         </div>  
           
         <div className="buttonControl">
-          <MainButton>END TURN</MainButton>
+          <MainButton onClick={fetchOnGoingGame("END_TURN")}>END TURN</MainButton> {/* il faudra faire une connection apres */} 
           <MainButton>SURRENDER</MainButton>
           <MainButton>HERO POWER</MainButton>
           <MainButton>PLAY</MainButton>
