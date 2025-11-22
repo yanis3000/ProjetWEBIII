@@ -32,6 +32,7 @@ export default function Game() {
   const [selfRemainingCardsCount, setSelfRemainingCardsCount] = useState(null)
 
   const [selfCard,setSelfCard] = useState(null) // pour mettre la carte que l'on va jouer
+  const [selfCardOpp,setSelfCardOpp] = useState(null) // pour mettre la carte que l'on va jouer
 
   const stateTimeout = useRef(null);
 
@@ -41,7 +42,7 @@ export default function Game() {
     // }
 
     
-    const fetchOnGoingGame = (param, uid="", targetuid="") => {
+    const fetchOnGoingGame = (param, uid=selfCard, targetuid=selfCardOpp) => {
       let formData = new FormData();
       formData.append("key",  localStorage.getItem("key"));
       formData.append("type", param);
@@ -63,7 +64,12 @@ export default function Game() {
 
     const handleClick = (uid) => {
         setSelfCard(uid)
-        console.log("Carte en cours : " + {uid})
+        console.log("Carte en cours : " + uid)
+    }
+
+    const handleClickOpp = (targetuid) => {
+        setSelfCardOpp(targetuid)
+        console.log("Carte de l'ennemi en cours : " + targetuid)
     }
 
   const fetchState = () => {
@@ -173,7 +179,7 @@ export default function Game() {
 
       <div className="deckOpp">
         {oppCards.map((cardOpp) => (
-          <div key={cardOpp.uid}>
+          <div key={cardOpp.uid} onClick={() => handleClickOpp(cardOpp.uid)}>
           <Cards description={cardOpp.mechanics.join("\n")} hp={cardOpp.hp} atk={cardOpp.atk} cost={cardOpp.cost}></Cards>
           </div>
         ))}
@@ -182,7 +188,7 @@ export default function Game() {
 
         <div className="deckOpp">
           {boardCards.map((cardBoard) => (
-            <div key={cardBoard.uid}>
+            <div key={cardBoard.uid} onClick={() => handleClick(cardBoard.uid)}>
             <Cards description={cardBoard.mechanics.join("\n")} hp={cardBoard.hp} atk={cardBoard.atk} cost={cardBoard.cost}></Cards>
             </div>
           ))}
@@ -191,7 +197,7 @@ export default function Game() {
       <div className="deckOpp">
         <div className="deckOpp">
           {handCards.map((cardHand) => (
-            <div key={cardHand.uid} onClick={() => handleClick({key})}>
+            <div key={cardHand.uid} onClick={() => handleClick(cardHand.uid)}> {/*faire en sorte de faire*/}
             <Cards description={cardHand.mechanics.join("\n")} hp={cardHand.hp} atk={cardHand.atk} cost={cardHand.cost}></Cards>
             </div>
           ))}
