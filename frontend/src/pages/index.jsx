@@ -9,7 +9,7 @@ export default function Programs({}) {
         username : "",
         password : "",
     });
-    const [connectionError, validation] = useState(null);
+    const [connectionError, setConnectionError] = useState(null);
     const navigate = useNavigate();
 
 
@@ -42,12 +42,19 @@ export default function Programs({}) {
                 localStorage.setItem("key", data.key);
                 navigate("/form");
             } else {
-                console.log("Erreur :", data.error);
+                setConnectionError("Erreur : " + data.error);
+               setAddProgramForm({
+                    username: "",
+                    password: ""
+                });
             }
         })
     }
 
     return <>
+
+        
+        {connectionError && (<p className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">{connectionError}</p>)}
 
         {/* className="border-t-2 border-blue-500 mt-2 pt-2"  */}
             <form className="rounded-lg"action="" onSubmit={e => handleAddProgram(e)}>
