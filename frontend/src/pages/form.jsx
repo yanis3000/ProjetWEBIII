@@ -97,7 +97,7 @@ export default function Form() {
 
       <iframe width={700} height={240} src={`https://magix.apps-de-cours.com/server/chat/${localStorage.getItem("key")}`}> </iframe>
 
-      {/* <iframe src={`"https://magix.apps-de-cours.com/server/deck/${localStorage.getItem("key")}`}></iframe> */}
+      <iframe width={700} height={240} src={`"https://magix.apps-de-cours.com/server/deck/${localStorage.getItem("key")}`}></iframe>
     </>
   );
 }

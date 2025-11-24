@@ -84,3 +84,15 @@
   padding: 4px 8px;
   border-radius: 6px;
 }
+
+.ui-comp {
+    position: absolute;
+    margin-left:-10vw;
+    margin-top:-10vh;
+    height: 10vh;
+    width: 10vw;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    z-index: 0;
+}

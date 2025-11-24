@@ -42,7 +42,7 @@ export default function Game() {
     // }
 
     
-    const fetchOnGoingGame = (param, uid=selfCard, targetuid=selfCardOpp) => {
+    const fetchOnGoingGame = (param, uid, targetuid) => {
       let formData = new FormData();
       formData.append("key",  localStorage.getItem("key"));
       formData.append("type", param);
@@ -55,6 +55,9 @@ export default function Game() {
           })
        .then(response => response.json())
        .then(response => {
+
+          console.log("ENVOI À API : ", { param, uid, targetuid });
+
           if (response.success == false){
             console.log(response.errorMessage)
           }
@@ -103,7 +106,7 @@ export default function Game() {
                 mechanics: card.mechanics
               }));
 
-              setBoardCards(list);
+              setHandCards(list);
             }
 
             if (response.result && response.result.board) {
@@ -116,7 +119,7 @@ export default function Game() {
                 mechanics: card.mechanics
               }));
 
-              setHandCards(list);
+              setBoardCards(list);
 
             }
 
@@ -194,22 +197,26 @@ export default function Game() {
           ))}
         </div>  
 
-      <div className="deckOpp">
-        <div className="deckOpp">
-          {handCards.map((cardHand) => (
-            <div key={cardHand.uid} onClick={() => handleClick(cardHand.uid)}> {/*faire en sorte de faire*/}
-            <Cards description={cardHand.mechanics.join("\n")} hp={cardHand.hp} atk={cardHand.atk} cost={cardHand.cost}></Cards>
-            </div>
-          ))}
-        </div>  
+
+          <div className="deckOpp">
+            {handCards.map((cardHand) => (
+              <div key={cardHand.uid} onClick={() => handleClick(cardHand.uid)}> {/*faire en sorte de faire*/}
+              <Cards description={cardHand.mechanics.join("\n")} hp={cardHand.hp} atk={cardHand.atk} cost={cardHand.cost}></Cards>
+              </div>
+            ))}
+          </div>  
           
+                  <div className="deckOpp">
+
+          {/* arrow function pour que ca le fasse que pendant que ca clique */}
         <div className="buttonControl">
-          <MainButton onClick={() => fetchOnGoingGame("END_TURN")}>END TURN</MainButton> {/* il faut faire une arrow function pour que ca le fasse que pendant que ca clique */} 
-          <MainButton onClick={() => fetchOnGoingGame("SURRENDER")}>SURRENDER</MainButton>
-          <MainButton onClick={() => fetchOnGoingGame("HERO_POWER")}>HERO POWER</MainButton>
-          <MainButton onClick={() => fetchOnGoingGame("PLAY")}>PLAY</MainButton>
+          <MainButton onClick={() => fetchOnGoingGame("END_TURN", selfCard, selfCardOpp)}>END TURN</MainButton> 
+          <MainButton onClick={() => fetchOnGoingGame("SURRENDER", selfCard, selfCardOpp)}>SURRENDER</MainButton>
+          <MainButton onClick={() => fetchOnGoingGame("HERO_POWER",  selfCard, selfCardOpp)}>HERO POWER</MainButton>
+          <MainButton onClick={() => fetchOnGoingGame("PLAY", selfCard, selfCardOpp)}>PLAY</MainButton>
+          <MainButton onClick={() => fetchOnGoingGame("ATTACK", selfCard, selfCardOpp)}>ATTACK</MainButton>
+
         </div>
-      </div>
 
       <p>{remainingTurnTime}</p>
 
@@ -220,6 +227,8 @@ export default function Game() {
         <p>MP : {selfMP}</p>
         <p>HandSize : {selfHandSize}</p>
         <p>RemainingCard : {selfRemainingCardsCount}</p>
+      </div>
+
       </div>
 
     </>

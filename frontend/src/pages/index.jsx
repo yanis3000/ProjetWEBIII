@@ -13,18 +13,6 @@ export default function Programs({}) {
     const navigate = useNavigate();
 
 
-    // // Code exécuté à chaque changement de valeur pour la variable programType
-    // useEffect(() => {
-    //     if (programType == "techniques") {
-    //         fetch("/api/programs.php")
-    //         .then(response => response.json())
-    //         .then(data => {
-    //             setProgramList(data);
-    //         })
-    //     }
-    // }, [programType])
-
-
     const handleAddProgram = e => {
         e.preventDefault(); // empeche d'envoyer le formulaire NO REFRESH
         let formData = new FormData();
@@ -56,22 +44,15 @@ export default function Programs({}) {
         
         {connectionError && (<p className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">{connectionError}</p>)}
 
-        {/* className="border-t-2 border-blue-500 mt-2 pt-2"  */}
-            <form className="rounded-lg"action="" onSubmit={e => handleAddProgram(e)}>
-                {/* <h1>MÉTRO</h1> */}
-                <img className="image" src="../src/assets/STM.svg"></img>
-                <div className="text"><input placeholder="Nom d'utilisateur" value={addProgramForm.username} onChange={(e) => setAddProgramForm({...addProgramForm, username : e.target.value})} type="text" name="username"></input></div>
-                <div className="text"><input placeholder="Mot de passe" value={addProgramForm.password} onChange={(e) => setAddProgramForm({...addProgramForm, password : e.target.value})}  type="password" name="password"></input></div>
-                <div className="validate"><input type="submit" value="Valider"></input></div>
-            </form>
+        <form className="rounded-lg"action="" onSubmit={e => handleAddProgram(e)}>
+            <img className="image" src="../src/assets/STM.svg"></img>
+            <div className="text"><input placeholder="Nom d'utilisateur" value={addProgramForm.username} onChange={(e) => setAddProgramForm({...addProgramForm, username : e.target.value})} type="text" name="username"></input></div>
+            <div className="text"><input placeholder="Mot de passe" value={addProgramForm.password} onChange={(e) => setAddProgramForm({...addProgramForm, password : e.target.value})}  type="password" name="password"></input></div>
+            <div className="validate"><input type="submit" value="Valider"></input></div>
+        </form>
 
-            {/* {data.map(d=>(
-                da
-            ))
-            } */}
-
-            {/* className ="border border-gray-300" value="" onChange={(e) => setAddProgramForm({...addProgramForm, name : e.target.value})} */}
-        </>
+        
+    </>
 
           
     
