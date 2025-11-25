@@ -19,9 +19,10 @@ export default function Programs({}) {
     const posRight = useRef(0);
     const [formActivate, setFormActivate] = useState(3);
     
-    const speed = 1;
+    const speed = 2;
     
     useEffect(() => {
+
         document.body.style.overflowX = "hidden";
     
         let leftTick;
@@ -48,6 +49,7 @@ export default function Programs({}) {
         tickAnimateRight();
 
         return () => {
+            clearTimeout(timerErr)
             document.body.style.overflowX = "auto"; // pas avoir de deroulement
             cancelAnimationFrame(leftTick);
             cancelAnimationFrame(rightTick);
@@ -79,7 +81,7 @@ export default function Programs({}) {
                 navigate("/form");
             } else {
                 setConnectionError("Erreur : " + data.error);
-               setAddProgramForm({
+                setAddProgramForm({
                     username: "",
                     password: ""
                 });
@@ -89,7 +91,10 @@ export default function Programs({}) {
 
     return <>
 
-        {connectionError && (<p className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">{connectionError}</p>)}
+        {connectionError && 
+            (<p className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert" style={{ zIndex: 1000, position: "relative" }}>
+                {connectionError}
+            </p>)}
 
         <div>        
             <img 
