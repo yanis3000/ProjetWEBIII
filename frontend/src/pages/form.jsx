@@ -4,6 +4,7 @@ import '../css/lobby.css';
 import { data, useNavigate } from "react-router"; 
 import MainButton from '../components/button'; 
 import Cards from '../components/cards'; 
+import MapButton from '../components/mapButton'; 
 
 
 
@@ -93,6 +94,8 @@ export default function Form() {
       <MainButton onClick={e => pvpGame(e, "PVP")}> PvP </MainButton>
 
       <Cards texte="test" description="description"></Cards>
+
+      <MapButton children="cul"></MapButton>
 
 
       <iframe width={700} height={240} src={`https://magix.apps-de-cours.com/server/chat/${localStorage.getItem("key")}`}> </iframe>

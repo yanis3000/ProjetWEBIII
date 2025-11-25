@@ -30,7 +30,7 @@ export default function Programs({}) {
         const tickAnimateLeft = () => {
             posLeft.current -= speed;
 
-            if (posLeft.current < -150) {
+            if (posLeft.current < -200) {
                 setFormActivate(10)
             }
 
