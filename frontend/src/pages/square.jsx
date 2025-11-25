@@ -1,48 +1,81 @@
 import { useEffect, useRef } from "react";
 
 export default function MovingSquare() {
-    const spriteNote = useRef(null);
-    const posX = useRef(0);
-    const posY = useRef(0);
+    const leftDoor = useRef(null);
+    const rightDoor = useRef(null);
+
+    const posLeft = useRef(0);
+    const posRight = useRef(0);
+
+    const speed = 1;
 
     useEffect(() => {
-        if (spriteNote.current) {
-            console.log("Démarrage de l'animation");
+        document.body.style.overflowX = "hidden";
 
-            let tickId = null;
+        let leftTick;
+        let rightTick;
 
-            const tick = () => {
-                posX.current += 1;
-                posY.current += 1;
+        const tickAnimateLeft = () => {
+            posLeft.current -= speed;
+            leftDoor.current.style.left = posLeft.current + "px";
+            leftTick = requestAnimationFrame(tickAnimateLeft);
+        };
 
-                if (posY.current >= window.innerHeight) {
-                    posY.current -= 1;
-                }
-                else {
-                    posY.current += 1;
-                }
+        const tickAnimateRight = () => {
+            posRight.current -= speed;
+            rightDoor.current.style.left = -posRight.current + "px";
+            rightTick = requestAnimationFrame(tickAnimateRight);
+        };
 
-                if (posX.current >= window.innerWidth) {
-                    posX.current -= 1;
-                }
-                else {
-                    posX.current += 1;
-                }
+        tickAnimateLeft();
+        tickAnimateRight();
 
+        return () => {
+            document.body.style.overflowX = "auto"; // pas avoir de deroulement
+            cancelAnimationFrame(leftTick);
+            cancelAnimationFrame(rightTick);
+        };
+    }, []);
+    const imgStyle = {
+            width: "100vw",
+            height: "100vh",
+            objectFit: "cover"
+        };
 
-                spriteNote.current.style.left = posX.current + "px";
-                spriteNote.current.style.bottom = posY.current + "px";
-                tickId = window.requestAnimationFrame(tick);
-            }
+    return (
+        <div>        
+            <img 
+                src="./src/images/2907_final.png" 
+                style={{ position: "absolute", zIndex: 2, top: 0, left: 0, ...imgStyle }}
+            />
 
-            tick();
+            <div 
+                ref={leftDoor}
+                style={{
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    width: "100vw",
+                    height: "100vh",
+                    zIndex: 1,
+                }}
+            >
+                <img src="./src/images/2907_left.png" style={imgStyle} />
+            </div>
 
-            return () => {
-                cancelAnimationFrame(tickId);
-                console.log("Fin de l'animation");
-            }
-        }
-    }, [spriteNote.current]);
-
-    return <div ref={spriteNote} className="absolute w-10 h-10 bottom-10 bg-black" ></div>
+            <div 
+                ref={rightDoor}
+                style={{
+                    position: "absolute",
+                    top: 0,
+                    right: 0,
+                    width: "100vw",
+                    height: "100vh",
+                    zIndex: 1,
+                }}
+            >
+                <img src="./src/images/2907_right.png" style={imgStyle} />
+            </div>
+        </div>
+    );
 }
