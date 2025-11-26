@@ -95,7 +95,7 @@ export default function Form() {
 
       <Cards texte="test" description="description"></Cards>
 
-      <MapButton children="cul"></MapButton>
+      <MapButton image="../src/images/position-marker.svg"/>
 
 
       <iframe width={700} height={240} src={`https://magix.apps-de-cours.com/server/chat/${localStorage.getItem("key")}`}> </iframe>

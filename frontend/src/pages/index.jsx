@@ -49,7 +49,6 @@ export default function Programs({}) {
         tickAnimateRight();
 
         return () => {
-            clearTimeout(timerErr)
             document.body.style.overflowX = "auto"; // pas avoir de deroulement
             cancelAnimationFrame(leftTick);
             cancelAnimationFrame(rightTick);
