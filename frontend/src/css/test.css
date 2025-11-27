@@ -1,0 +1,39 @@
+.background {
+  width: 100vw;
+  height: 100vh;
+  background-image: url("../src/images/planmetropolitain.webp");
+  background-size: cover;     
+  background-position: center; 
+  background-repeat: no-repeat;
+  color: white;
+}
+
+.deck {
+    position: absolute;
+    bottom: 8.5vh;
+    left: 26vw;
+}
+
+.logout {
+    position: absolute;
+    top: 34vh;
+    left: 83vw;
+}
+
+.jouer {
+    position: absolute;
+    top: 50vh;
+    left: 41.5vw;
+}
+
+.chat {
+    position: absolute;
+    top: 15vh;
+    left: 58vw;
+}
+
+.pratique {
+    position: absolute;
+    top: 15vh;
+    left: 24vw;
+}

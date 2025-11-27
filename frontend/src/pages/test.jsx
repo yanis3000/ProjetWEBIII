@@ -1,16 +1,17 @@
+import '../css/test.css'; 
+import MapButton from '../components/mapButton'; 
+
+
 export default function Test() {
-
-
-
-
 
 
 
     return(
 
-        <div>
-            <img src="../src/images/planmetropolitain.webp" style={{width: "100vw"}}></img>
+        <div className='background'>
+            <MapButton className="deck" image="../src/images/position-marker.svg"/>
         </div>
+        
 
     )
 
