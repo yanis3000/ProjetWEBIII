@@ -9,12 +9,12 @@
 		}
 
 		protected function executeAction() {
-			if (isset($_POST["author"]) && isset($_POST["answer"])) {
-				AnswerDAO::addAnswer($_POST["author"], $_POST["answer"]);
+			if (isset($_POST["note"])) {
+				AnswerDAO::addAnswer($_POST["note"]);
 			}
 
 			$answers = AnswerDAO::getAnswers();
 			
-			return compact("answers");
+			return compact("reponse");
 		}
 	}

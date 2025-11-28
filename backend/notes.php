@@ -4,5 +4,5 @@
 	$action = new NotesAction();
 	$data = $action->execute();
 
-	var_dump($data['answers'])
+	echo json_encode($data);
 ?>

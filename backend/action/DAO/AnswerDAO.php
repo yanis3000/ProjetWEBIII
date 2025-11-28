@@ -6,18 +6,17 @@
         public static function getAnswers() {
             // Abstraction de BD
             $connection = Connection::getConnection();
-            $statement = $connection->prepare("SELECT * FROM stack_answers");
+            $statement = $connection->prepare("SELECT * FROM notes_tech");
             $statement->execute();
             $allRows = $statement->fetchAll();
             return $allRows;
         }
 
 
-        public static function addAnswer($author, $answer) {
+        public static function addAnswer($answer) {
             $connection = Connection::getConnection();
-            $statement = $connection->prepare("INSERT INTO stack_answers (author, answer) VALUES (:author, :answer)");
-            $statement->bindParam(':author', $author);
-            $statement->bindParam(':answer', $answer);
+            $statement = $connection->prepare("INSERT INTO notes_tech (notes) VALUES (:notes)");
+            $statement->bindParam(':notes', $answer);
             $statement->execute();
         }
 
