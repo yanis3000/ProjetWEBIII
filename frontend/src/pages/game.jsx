@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import '../css/global.css'; 
-import '../css/lobby.css'; 
+// import '../css/lobby.css'; 
 import '../css/game.css'; 
 import { data, useNavigate } from "react-router"; 
 import MainButton from '../components/button'; 
@@ -166,70 +166,69 @@ export default function Game() {
   return (
     <>
 
-
-      {/* <h1 style={{color:"red"}} >Vous êtes dans la partie !</h1>
-      <p>{heroClass}</p>
-      <p>{remainingTurnTime}</p> */}
-
-      <div className="infoOpp">
-        <p>{oppUsername}</p>
-        <p>{oppHeroClass}</p>
-        <p>HP : {oppHP}</p>
-        <p>MP : {oppMP}</p>
-        <p>HandSize : {oppHandSize}</p>
-        <p>RemainingCard : {oppRemainingCardsCount}</p>
-      </div>
-
-      <div className="deckOpp">
-        {oppCards.map((cardOpp) => (
-          <div key={cardOpp.uid} onClick={() => handleClickOpp(cardOpp.uid)}>
-          <Cards description={cardOpp.mechanics.join("\n")} hp={cardOpp.hp} atk={cardOpp.atk} cost={cardOpp.cost}></Cards>
-          </div>
-        ))}
-      </div>  
-        {/* <h1 style={{color:"red"}}>Opposant</h1> */}
+      <div className="game-layout">
+        <div className="info">
+          <p>{oppUsername}</p>
+          <p>{oppHeroClass}</p>
+          <p>HP : {oppHP}</p>
+          <p>MP : {oppMP}</p>
+          <p>HandSize : {oppHandSize}</p>
+          <p>RemainingCard : {oppRemainingCardsCount}</p>
+        </div>
 
         <div className="deckOpp">
-          {boardCards.map((cardBoard) => (
-            <div key={cardBoard.uid} onClick={() => handleClick(cardBoard.uid)}>
-            <Cards description={cardBoard.mechanics.join("\n")} hp={cardBoard.hp} atk={cardBoard.atk} cost={cardBoard.cost}></Cards>
+          {oppCards.map((cardOpp) => (
+            <div key={cardOpp.uid} onClick={() => handleClickOpp(cardOpp.uid)}>
+            <Cards description={cardOpp.mechanics.join("\n")} hp={cardOpp.hp} atk={cardOpp.atk} cost={cardOpp.cost}></Cards>
             </div>
           ))}
         </div>  
+          {/* <h1 style={{color:"red"}}>Opposant</h1> */}
+          <div className="time">
+              <p>{remainingTurnTime}</p>            
+          </div> 
 
-
-          <div className="deckOpp">
-            {handCards.map((cardHand) => (
-              <div key={cardHand.uid} onClick={() => handleClick(cardHand.uid)}> {/*faire en sorte de faire*/}
-              <Cards description={cardHand.mechanics.join("\n")} hp={cardHand.hp} atk={cardHand.atk} cost={cardHand.cost}></Cards>
+          <div className="deckBoard">
+            {boardCards.map((cardBoard) => (
+              <div key={cardBoard.uid} onClick={() => handleClick(cardBoard.uid)}>
+              <Cards description={cardBoard.mechanics.join("\n")} hp={cardBoard.hp} atk={cardBoard.atk} cost={cardBoard.cost}></Cards>
               </div>
             ))}
           </div>  
-          
-                  <div className="deckOpp">
 
-          {/* arrow function pour que ca le fasse que pendant que ca clique */}
-        <div className="buttonControl">
-          <MainButton onClick={() => fetchOnGoingGame("END_TURN", selfCard, selfCardOpp)}>END TURN</MainButton> 
-          <MainButton onClick={() => fetchOnGoingGame("SURRENDER", selfCard, selfCardOpp)}>SURRENDER</MainButton>
-          <MainButton onClick={() => fetchOnGoingGame("HERO_POWER",  selfCard, selfCardOpp)}>HERO POWER</MainButton>
-          <MainButton onClick={() => fetchOnGoingGame("PLAY", selfCard, selfCardOpp)}>PLAY</MainButton>
-          <MainButton onClick={() => fetchOnGoingGame("ATTACK", selfCard, selfCardOpp)}>ATTACK</MainButton>
+          <div className="self-container">
+            <div className="deckHand">
+              {handCards.map((cardHand) => (
+                <div key={cardHand.uid} onClick={() => handleClick(cardHand.uid)}> {/*faire en sorte de faire*/}
+                <Cards description={cardHand.mechanics.join("\n")} hp={cardHand.hp} atk={cardHand.atk} cost={cardHand.cost}></Cards>
+                </div>
+              ))}
+            </div>  
+            
+
+            {/* arrow function pour que ca le fasse que pendant que ca clique */}
+            <div className="buttonControl">
+              <MainButton onClick={() => fetchOnGoingGame("END_TURN", selfCard, selfCardOpp)}>END TURN</MainButton> 
+              <MainButton onClick={() => fetchOnGoingGame("SURRENDER", selfCard, selfCardOpp)}>SURRENDER</MainButton>
+              <MainButton onClick={() => fetchOnGoingGame("HERO_POWER",  selfCard, selfCardOpp)}>HERO POWER</MainButton>
+              <MainButton onClick={() => fetchOnGoingGame("PLAY", selfCard, selfCardOpp)}>PLAY</MainButton>
+              <MainButton onClick={() => fetchOnGoingGame("ATTACK", selfCard, selfCardOpp)}>ATTACK</MainButton>
+
+            </div>
 
         </div>
+        
+          <div className="info">
+            <p>{selfUsername}</p>
+            <p>{selfHeroClass}</p>
+            <p>HP : {selfHP}</p>
+            <p>MP : {selfMP}</p>
+            <p>HandSize : {selfHandSize}</p>
+            <p>RemainingCard : {selfRemainingCardsCount}</p>
+          </div>
 
-      <p>{remainingTurnTime}</p>
 
-      <div className="infoOpp">
-        <p>{selfUsername}</p>
-        <p>{selfHeroClass}</p>
-        <p>HP : {selfHP}</p>
-        <p>MP : {selfMP}</p>
-        <p>HandSize : {selfHandSize}</p>
-        <p>RemainingCard : {selfRemainingCardsCount}</p>
-      </div>
-
-      </div>
+    </div>
 
     </>
   );

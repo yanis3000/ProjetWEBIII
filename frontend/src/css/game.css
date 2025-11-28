@@ -1,4 +1,12 @@
-.infoOpp {
+.game-layout {
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    height: 100vh; /* IMPORTANT */
+}
+
+
+.info {
     display: flex;
     justify-content:space-around;
 
@@ -10,8 +18,32 @@
     gap : 1em
 }
 
+.time {
+    display: flex;
+    justify-content: center;
+}
+
+.deckBoard {
+    display: flex;
+    justify-content: center;
+    gap : 1em
+}
+
+.deckHand {
+    display: flex;
+    justify-content: center;
+    gap : 1em
+}
+
+.self-container {
+    display: flex;
+    justify-content: center;
+    gap : 1em;
+    justify-items: end;
+    margin-top: auto;  /* <-- pousser vers le bas */
+}
+
 .buttonControl {
     display: flex;
     flex-direction: column;
-
 }

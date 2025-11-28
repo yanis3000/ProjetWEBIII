@@ -5,6 +5,10 @@ import { data, useNavigate } from "react-router";
 import MainButton from '../components/button'; 
 import Cards from '../components/cards'; 
 import MapButton from '../components/mapButton'; 
+import UiElement from '../components/uiElement'; 
+import heart from '../images/heart-beats.svg';
+import marker from "../images/position-marker.svg";
+
 
 
 
@@ -96,6 +100,9 @@ export default function Form() {
       <Cards texte="test" description="description"></Cards>
 
       <MapButton image="../src/images/position-marker.svg"/>
+
+      <UiElement texte="test" image={heart} />
+
 
 
       <iframe width={700} height={240} src={`https://magix.apps-de-cours.com/server/chat/${localStorage.getItem("key")}`}> </iframe>
