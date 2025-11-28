@@ -32,7 +32,9 @@ export default function Game() {
   const [selfRemainingCardsCount, setSelfRemainingCardsCount] = useState(null)
 
   const [selfCard,setSelfCard] = useState(null) // pour mettre la carte que l'on va jouer
-  const [selfCardOpp,setSelfCardOpp] = useState(null) // pour mettre la carte que l'on va jouer
+  const [selfCardOpp,setSelfCardOpp] = useState(0) // pour mettre la carte que l'on va jouer
+
+  // changer cela pour un let
 
   const stateTimeout = useRef(null);
 
@@ -57,6 +59,7 @@ export default function Game() {
        .then(response => {
 
           console.log("ENVOI À API : ", { param, uid, targetuid });
+          setSelfCardOpp(0) // pour faire en sorte que le hero soit attaque par defaut
 
           if (response.success == false){
             console.log(response.errorMessage)
@@ -70,8 +73,8 @@ export default function Game() {
         console.log("Carte en cours : " + uid)
     }
 
-    const handleClickOpp = (targetuid) => {
-        setSelfCardOpp(targetuid)
+    const handleClickOpp = (targetuid = 0) => {
+        setSelfCardOpp(targetuid) // if turn is true
         console.log("Carte de l'ennemi en cours : " + targetuid)
     }
 

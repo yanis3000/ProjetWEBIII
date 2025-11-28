@@ -6,6 +6,7 @@ import Form from './pages/form.jsx'
 import Game from './pages/game.jsx'
 import MovingSquare from './pages/square.jsx'
 import Test from './pages/test.jsx'
+import Notes from './pages/notes.jsx'
 
 
 createRoot(document.getElementById('root')).render(
@@ -16,6 +17,7 @@ createRoot(document.getElementById('root')).render(
             <Route path="/game" element={<Game />} />
             <Route path="/square" element={<MovingSquare />} />
             <Route path="/test" element={<Test />} />
+            <Route path="/notes" element={<Notes />} />
         </Routes>
     </BrowserRouter>
 )
