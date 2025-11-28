@@ -5,7 +5,7 @@ import Button from "../components/button";
 export default function Notes() {
 
     const [notes, setNotes] = useState([]);
-
+    // add notes () useSate()
     useEffect(() => {
         console.log("page chargée");
         let formData = new FormData();
