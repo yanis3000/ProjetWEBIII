@@ -15,6 +15,6 @@
 
 			$answers = AnswerDAO::getAnswers();
 			
-			return compact("reponse");
+			return compact("response");
 		}
 	}

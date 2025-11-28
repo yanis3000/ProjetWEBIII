@@ -75,11 +75,11 @@ export default function Programs({}) {
         .then (response => response.json())
         .then(data => {
             console.log(data);
-            if (data.success === true) {
-                localStorage.setItem("key", data.key);
+            if (data.response.success === true) {
+                localStorage.setItem("key", data.response.key);
                 navigate("/form");
             } else {
-                setConnectionError("Erreur : " + data.error);
+                setConnectionError("Erreur : " + data.response.error);
                 setAddProgramForm({
                     username: "",
                     password: ""
