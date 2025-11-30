@@ -5,6 +5,7 @@ import '../css/game.css';
 import { data, useNavigate } from "react-router"; 
 import MainButton from '../components/button'; 
 import Cards from '../components/cards'; 
+import UiElement from "../components/uiElement";
 
 export default function Game() {
 
@@ -171,12 +172,15 @@ export default function Game() {
 
       <div className="game-layout">
         <div className="info">
-          <p>{oppUsername}</p>
-          <p>{oppHeroClass}</p>
-          <p>HP : {oppHP}</p>
-          <p>MP : {oppMP}</p>
-          <p>HandSize : {oppHandSize}</p>
-          <p>RemainingCard : {oppRemainingCardsCount}</p>
+          <div>
+            <p>{oppUsername}</p>
+            <p>{oppHeroClass}</p>
+          </div>
+          <UiElement texte={oppHP} image='../src/images/heart-beats.svg'></UiElement>
+          <UiElement texte={oppMP} image='../src/images/round-potion.svg'></UiElement>
+          <UiElement texte={oppHandSize} image='../src/images/card-ace-diamonds.png'></UiElement>
+          <UiElement texte={oppRemainingCardsCount} image='../src/images/cardboard-box.svg'></UiElement>
+          
         </div>
 
         <div className="deckOpp">
@@ -188,7 +192,7 @@ export default function Game() {
         </div>  
           {/* <h1 style={{color:"red"}}>Opposant</h1> */}
           <div className="time">
-              <p>{remainingTurnTime}</p>            
+              <UiElement texte={remainingTurnTime} image='../src/images/stopwatch.svg'></UiElement>  
           </div> 
 
           <div className="deckBoard">
@@ -222,12 +226,14 @@ export default function Game() {
         </div>
         
           <div className="info">
+          <div>
             <p>{selfUsername}</p>
             <p>{selfHeroClass}</p>
-            <p>HP : {selfHP}</p>
-            <p>MP : {selfMP}</p>
-            <p>HandSize : {selfHandSize}</p>
-            <p>RemainingCard : {selfRemainingCardsCount}</p>
+          </div>
+          <UiElement texte={selfHP} image='../src/images/heart-beats.svg'></UiElement>
+          <UiElement texte={selfMP} image='../src/images/round-potion.svg'></UiElement>
+          <UiElement texte={selfRemainingCardsCount} image='../src/images/cardboard-box.svg'></UiElement>
+          
           </div>
 
 

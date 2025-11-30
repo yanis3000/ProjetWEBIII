@@ -3,36 +3,46 @@
     flex-direction: column;
     width: 100vw;
     height: 100vh; /* IMPORTANT */
+        overflow: hidden; /* EMPÊCHE LE SCROLL DANS LE LAYOUT */
+
 }
 
 
 .info {
     display: flex;
     justify-content:space-around;
+    background-color: rgb(222, 238, 238);
 
 }
 
 .deckOpp {
     display: flex;
     justify-content: center;
-    gap : 1em
+    gap : 1em;
+    border-radius: 25px;
+    background-color: rgb(222, 238, 238);
+    margin : 5px 5vw;
+    
 }
 
 .time {
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
 }
 
 .deckBoard {
     display: flex;
     justify-content: center;
-    gap : 1em
+    gap : 1em;
+    border-radius: 25px;
+    background-color: rgb(222, 238, 238);
+    margin : 5px 5vw;
 }
 
 .deckHand {
     display: flex;
     justify-content: center;
-    gap : 1em
+    gap : 1em;
 }
 
 .self-container {
@@ -41,6 +51,7 @@
     gap : 1em;
     justify-items: end;
     margin-top: auto;  /* <-- pousser vers le bas */
+    background-color: rgb(222, 238, 238);
 }
 
 .buttonControl {

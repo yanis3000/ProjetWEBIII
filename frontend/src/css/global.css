@@ -6,7 +6,7 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  width: 150px;
+  width: 170px;
   min-width: 100px;
   height: 240px;
   min-height: 200px;
@@ -38,11 +38,11 @@
 }
 
 .card img {
-  height: 120px;  
+  height: 100px;  
   border-radius: 12px;
   object-fit: cover;
   box-shadow: 0 4px 12px rgba(0,0,0,0.4);
-  width: 200px; 
+  width: 150px; 
 }
 
 .card p {
@@ -60,7 +60,7 @@
 
 .description {
   font-family: 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-  font-size: 9px;
+  font-size: 12px;
   background: rgba(255,255,255,0.1);
   margin: 0px 10px 0px 10px;
 
