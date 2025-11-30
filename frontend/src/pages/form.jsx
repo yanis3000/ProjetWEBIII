@@ -21,7 +21,6 @@ export default function Form() {
         e.preventDefault(); 
         let formData = new FormData();
         formData.append("key",  localStorage.getItem("key"));
-        formData.append("type",  );
             
         fetch("/api/logout.php", {
             method : "POST",
@@ -29,7 +28,7 @@ export default function Form() {
             })
             .then (response => response.json())
             .then(data => {
-              if (data.success) {
+              if (data.response.success) {
                 console.log("Déconnexion réussie !");
                 localStorage.removeItem("key");
                 navigate("/");
@@ -54,8 +53,8 @@ export default function Form() {
             })
             .then (response => response.json())
             .then(data => {
-              if (data.success) {
-                console.log(data.type);
+              if (data.response.success) {
+                console.log(data.response.type);
                 navigate("/game")
               }
               else {
@@ -78,8 +77,8 @@ export default function Form() {
             })
             .then (response => response.json())
             .then(data => {
-              if (data.success) {
-                console.log(data.type);
+              if (data.response.success) {
+                console.log(data.response.type);
                 navigate("/game")
               }
               else {

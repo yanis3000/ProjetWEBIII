@@ -1,6 +1,6 @@
 <?php
 	require_once("action/CommonAction.php");
-	require_once("action/DAO/AnswerDAO.php");
+	require_once("action/DAO/NotesDAO.php");
 
 	class NotesAction extends CommonAction {
 
@@ -10,11 +10,11 @@
 
 		protected function executeAction() {
 			if (isset($_POST["note"])) {
-				AnswerDAO::addAnswer($_POST["note"]);
+				NotesDAO::addAnswer($_POST["note"]);
 			}
 
-			$answers = AnswerDAO::getAnswers();
+			$notes = NotesDAO::getAnswers();
 			
-			return compact("response");
+			return compact("notes");
 		}
 	}

@@ -1,55 +1,61 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import Button from "../components/button";
 
-
 export default function Notes() {
+    const [notes, setNotes] = useState(null);
 
-    const [notes, setNotes] = useState([]);
-    // add notes () useSate()
     useEffect(() => {
         console.log("page chargée");
-        let formData = new FormData();
-        formData.append("notes",  notes);
-        console.log("test1")
 
         fetch("/api/notes.php", {
-            method : "POST",
+            method: 'POST'
         })
         .then((response) => response.json())
         .then((data) => {
-            console.log("Produits reçus :", data);
-            setNotes(data);
+            console.log("Notes reçues :", data);
         })
-        .catch((err) => {
+        .catch((error) => {
+            console.error("Erreur:", error);
         });
 
         return () => {
-        console.log("on quitte la page");
+            console.log("on quitte la page");
         };
     }, []);
 
-    useEffect(() => {
-    }, [notes]);
-
     const handleAdd = () => {
-        let name = prompt("Nom du produit");
-        if (name) addAnswer([...notes, name]);
+        let noteText = prompt("Entrez votre note:");
+        if (noteText) {
+            let formData = new FormData();
+            formData.append("note", noteText);
+            
+            fetch("/api/notes.php", {
+                method: 'POST',
+                body: formData
+            })
+            .then((response) => response.json())
+            .then((data) => {
+                
+                if (data && data.notes) {
+                    setNotes(data.notes);
+                }
+                
+                console.log("Note ajoutée:", data);
+            })
+            .catch((error) => {
+                console.error("Erreur:", error);
+            });
+        }
     };
 
-
-
     return(
-        <div >
-            <p>yeet</p>
+        <div>
             {notes.map((note) => (
-            <div key={note} className="px-2 text-green-600">
-                {note}
-            </div>
+                <div key={note.id} className="px-2 text-green-600">
+                    {note.id + note.notes}
+                </div>
             ))}
-
             <Button onClick={handleAdd} className="font-bold" texte="Add" />
-        
         </div>
-    )
-
+    );
 }
