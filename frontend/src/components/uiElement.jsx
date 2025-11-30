@@ -4,7 +4,7 @@ export default function UiElement({ texte, image }) {
         <div 
             style={{
                 width: "5vw",
-                height: "8vh",
+                height: "7vh",
                 position: "relative"
             }}
         >
@@ -17,7 +17,7 @@ export default function UiElement({ texte, image }) {
                     height: "100%",
                     objectFit: "contain",
                     position: "absolute",
-                    filter: "brightness(0.5)", // 0 = noir, 1 = normal
+                    filter: "brightness(0.0)", // 0 = noir, 1 = normal
                     top: 0,
                     left: 0,
                 }}
@@ -25,12 +25,12 @@ export default function UiElement({ texte, image }) {
 
             <div style={{
                 position: "absolute", 
-                top: "50%",
+                top: "80%",
                 left: "50%",
                 transform: "translate(-50%, -50%)",
                 fontFamily: "Jersey 10",
-                fontSize: "1.3em",
-                color: "white",
+                fontSize: "1.1em",
+                color: "black",
 
             }}>
                 {texte}
