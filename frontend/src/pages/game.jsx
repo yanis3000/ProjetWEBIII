@@ -197,7 +197,7 @@ export default function Game() {
 
           <div className="deckBoard">
             {boardCards.map((cardBoard) => (
-              <div key={cardBoard.uid} onClick={() => handleClick(cardBoard.uid)}>
+              <div key={cardBoard.uid} onClick={() => {handleClick(cardBoard.uid); fetchOnGoingGame("ATTACK", selfCard, selfCardOpp);}}>
               <Cards description={cardBoard.mechanics.join("\n")} hp={cardBoard.hp} atk={cardBoard.atk} cost={cardBoard.cost}></Cards>
               </div>
             ))}
@@ -206,7 +206,7 @@ export default function Game() {
           <div className="self-container">
             <div className="deckHand">
               {handCards.map((cardHand) => (
-                <div key={cardHand.uid} onClick={() => handleClick(cardHand.uid)}> {/*faire en sorte de faire*/}
+                <div key={cardHand.uid} onClick={() => {handleClick(cardHand.uid); fetchOnGoingGame("PLAY", selfCard, selfCardOpp);}}> {/*faire en sorte de faire*/}
                 <Cards description={cardHand.mechanics.join("\n")} hp={cardHand.hp} atk={cardHand.atk} cost={cardHand.cost}></Cards>
                 </div>
               ))}
