@@ -1,7 +1,11 @@
 export default function MainButton ({children, className = "", onClick}) {
     return (
         <button
-  className={"text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700 " + className}
+  className={"text-white bg-black hover:text-black hover:bg-white " +
+  "transition-colors duration-300 ease-in-out " +
+  "focus:outline-none focus:ring-4 focus:ring-gray-300 " +
+  "font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 " +
+  "dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700 " + className}
   onClick={onClick}>
             {children}
         </button>

@@ -1,17 +1,27 @@
+.video {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;        /* Très important */
+  z-index: -1;      
+}
+
 .game-layout {
     display: flex;
     flex-direction: column;
     width: 100vw;
     height: 100vh; /* IMPORTANT */
-        overflow: hidden; /* EMPÊCHE LE SCROLL DANS LE LAYOUT */
-
+    overflow: hidden; /* EMPÊCHE LE SCROLL DANS LE LAYOUT */
 }
 
 
 .info {
     display: flex;
     justify-content:space-around;
-    background-color: rgb(222, 238, 238);
+    background-color: rgb(0, 0, 0, 0.7);
+    color: white;
 
 }
 

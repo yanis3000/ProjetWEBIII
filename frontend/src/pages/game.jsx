@@ -184,6 +184,16 @@ export default function Game() {
   return (
     <>
 
+      <video
+        autoPlay
+        muted
+        loop
+        className="video"
+      >
+          <source src="../src/images/Lights-Corners-Rotating-Light-Effect-Loop.mp4" type="video/mp4" />
+          
+      </video>
+
       <div className="game-layout">
         <div className="info">
           <div>

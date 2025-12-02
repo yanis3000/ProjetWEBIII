@@ -13,11 +13,10 @@ export default function UiElement({ texte, image }) {
                 src={image}
                 alt=""
                 style={{
-                    width: "100%",
-                    height: "100%",
+                    width: "90%",
+                    height: "90%",
                     objectFit: "contain",
                     position: "absolute",
-                    filter: "brightness(0.0)", // 0 = noir, 1 = normal
                     top: 0,
                     left: 0,
                 }}
@@ -25,13 +24,15 @@ export default function UiElement({ texte, image }) {
 
             <div style={{
                 position: "absolute", 
-                top: "80%",
-                left: "50%",
+                top: "70%",
+                left: "75%",
                 transform: "translate(-50%, -50%)",
                 fontFamily: "Jersey 10",
-                fontSize: "1.1em",
-                color: "black",
-
+                fontSize: "1.2em",
+                color: "white",
+                background: "linear-gradient(45deg, #000000ff, #2e2e2eff)",
+                padding: "1px 6px",
+                borderRadius: "5px"
             }}>
                 {texte}
             </div>
