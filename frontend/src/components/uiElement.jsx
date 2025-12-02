@@ -3,6 +3,7 @@ export default function UiElement({ texte, image }) {
     return (
         <div 
             style={{
+                marginTop: "10px",
                 width: "5vw",
                 height: "7vh",
                 position: "relative"
@@ -24,11 +25,11 @@ export default function UiElement({ texte, image }) {
 
             <div style={{
                 position: "absolute", 
-                top: "70%",
+                top: "65%",
                 left: "75%",
                 transform: "translate(-50%, -50%)",
                 fontFamily: "Jersey 10",
-                fontSize: "1.2em",
+                fontSize: "1.0em",
                 color: "white",
                 background: "linear-gradient(45deg, #000000ff, #2e2e2eff)",
                 padding: "1px 6px",

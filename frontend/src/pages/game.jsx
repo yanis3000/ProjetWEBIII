@@ -58,6 +58,27 @@ export default function Game() {
     //     e.preventDefault(); 
     // }
 
+    const chatRef = useRef(null);
+
+    const applyStyles = ()=> {
+      let styles = {
+        backgroundColor : "rgba(87, 41, 5, 0.2)",
+        fontSize : "15px",
+        hideIcons : false,
+        inputBackgroundColor : "black",
+        inputFontColor : "white",
+        height : "50px",
+        padding: "5px",
+        memberListFontColor : "#000000",
+        memberListBackgroundColor : "white",
+        hideScrollBar: true, // pour cacher le scroll bar
+      }
+      
+      setTimeout(() => {
+        chatRef.current.contentWindow.postMessage(JSON.stringify(styles), "*");	
+    }, 100);
+    }
+
     
     const fetchOnGoingGame = (param, uid, targetuid) => {
       let formData = new FormData();
@@ -200,11 +221,12 @@ export default function Game() {
             <p>{oppUsername}</p>
             <p>{oppHeroClass}</p>
           </div>
-          <UiElement texte={oppHP} image='../src/images/heart-beats.svg'></UiElement>
-          <UiElement texte={oppMP} image='../src/images/round-potion.svg'></UiElement>
-          <UiElement texte={oppHandSize} image='../src/images/card-ace-diamonds.png'></UiElement>
-          <UiElement texte={oppRemainingCardsCount} image='../src/images/cardboard-box.svg'></UiElement>
-          
+          <div className="elem-info-opp">
+            <UiElement texte={oppHP} image='../src/images/heart-beats.svg'></UiElement>
+            <UiElement texte={oppMP} image='../src/images/round-potion.svg'></UiElement>
+            <UiElement texte={oppHandSize} image='../src/images/card-ace-diamonds.png'></UiElement>
+            <UiElement texte={oppRemainingCardsCount} image='../src/images/cardboard-box.svg'></UiElement>
+          </div>
         </div>
 
         <div className="deckOpp">
@@ -238,26 +260,33 @@ export default function Game() {
             
 
             {/* arrow function pour que ca le fasse que pendant que ca clique */}
-            <div className="buttonControl">
-              <MainButton onClick={() => fetchOnGoingGame("END_TURN", selfCard, selfCardOpp)}>END TURN</MainButton> 
+            {/* <div className="buttonControl"> */}
+              {/* <MainButton onClick={() => fetchOnGoingGame("END_TURN", selfCard, selfCardOpp)}>END TURN</MainButton> 
               <MainButton onClick={() => fetchOnGoingGame("SURRENDER", selfCard, selfCardOpp)}>SURRENDER</MainButton>
               <MainButton onClick={() => fetchOnGoingGame("HERO_POWER",  selfCard, selfCardOpp)}>HERO POWER</MainButton>
-              <MainButton onClick={() => fetchOnGoingGame("PLAY", selfCard, selfCardOpp)}>PLAY</MainButton>
-              <MainButton onClick={() => fetchOnGoingGame("ATTACK", selfCard, selfCardOpp)}>ATTACK</MainButton>
+              {/* <MainButton onClick={() => fetchOnGoingGame("PLAY", selfCard, selfCardOpp)}>PLAY</MainButton>
+              <MainButton onClick={() => fetchOnGoingGame("ATTACK", selfCard, selfCardOpp)}>ATTACK</MainButton> */} 
 
-            </div>
+            {/* </div> */}
 
         </div>
         
           <div className="info">
-          <div>
-            <p>{selfUsername}</p>
-            <p>{selfHeroClass}</p>
+            <div>
+              <MainButton onClick={() => fetchOnGoingGame("END_TURN", selfCard, selfCardOpp)}>END TURN</MainButton> 
+              <MainButton onClick={() => fetchOnGoingGame("SURRENDER", selfCard, selfCardOpp)}>SURRENDER</MainButton>
+              <MainButton onClick={() => fetchOnGoingGame("HERO_POWER",  selfCard, selfCardOpp)}>HERO POWER</MainButton>
+            </div>
+
+            <iframe width={700} height={60} ref={chatRef} onLoad={applyStyles} src={`https://magix.apps-de-cours.com/server/chat/${localStorage.getItem("key")}`}> </iframe>
+
+
+          <div className="elem-info-self">
+            <UiElement texte={selfHP} image='../src/images/heart-beats.svg'></UiElement>
+            <UiElement texte={selfMP} image='../src/images/round-potion.svg'></UiElement>
+            <UiElement texte={selfRemainingCardsCount} image='../src/images/cardboard-box.svg'></UiElement>
           </div>
-          <UiElement texte={selfHP} image='../src/images/heart-beats.svg'></UiElement>
-          <UiElement texte={selfMP} image='../src/images/round-potion.svg'></UiElement>
-          <UiElement texte={selfRemainingCardsCount} image='../src/images/cardboard-box.svg'></UiElement>
-          
+
           </div>
 
 
