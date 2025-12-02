@@ -2,8 +2,9 @@ import { useEffect, useState } from "react";
 import Button from "../components/button";
 
 export default function Notes() {
-    const [notes, setNotes] = useState(null);
+    const [notes, setNotes] = useState([]);
 
+    
     useEffect(() => {
         console.log("page chargée");
 

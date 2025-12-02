@@ -61,24 +61,24 @@ export default function Game() {
     // }
 
     const chatRef = useRef(null);
-
+    
     const applyStylesOver = ()=> {
+      setGameChatHeight(240)
       let styles = {
-        scrolling:"no",        
-        backgroundColor : "rgba(255,255, 255, .2)",
-        fontSize : "20px",
-        hideIcons : true,
+        backgroundColor : "rgba(255,255, 255, .4)",
+        fontSize : "23px",
+        hideIcons : false,
         inputBackgroundColor : "black",
         inputFontColor : "white",
         height : "240px",
         padding: "5px",
+        border: "none",
         transition: "all is ease",      
         memberListFontColor : "#000000",
         memberListBackgroundColor : "white",
         hideScrollBar: true, // pour cacher le scroll bar
       }
 
-      setGameChatHeight(240)
       
       setTimeout(() => {
         chatRef.current.contentWindow.postMessage(JSON.stringify(styles), "*");	
@@ -86,20 +86,20 @@ export default function Game() {
     }
 
     const applyStylesOut = ()=> {
+      setGameChatHeight(50)
       let styles = {
-        backgroundColor : "rgba(255,255, 255, .2)",
-        fontSize : "20px",
-        hideIcons : true,
+        backgroundColor : "rgba(255,255, 255, .4)",
+        fontSize : "23px",
+        hideIcons : false,
         inputBackgroundColor : "black",
         inputFontColor : "white",
         height : "240px",
         padding: "5px",
-        memberListFontColor : "#000000",
-        memberListBackgroundColor : "white",
+        memberListFontColor : "none",
+        memberListBackgroundColor : "none",
         hideScrollBar: true, // pour cacher le scroll bar
       }
 
-      setGameChatHeight(80)
       
       setTimeout(() => {
         chatRef.current.contentWindow.postMessage(JSON.stringify(styles), "*");	
@@ -315,7 +315,7 @@ export default function Game() {
           </div>
 
           <div className="game-chat">
-            <iframe scrolling="no" width={700} height={gameChatHeight} ref={chatRef} onMouseOver={applyStylesOver} onLoad={applyStylesOut} onMouseOut={applyStylesOut} src={`https://magix.apps-de-cours.com/server/chat/${localStorage.getItem("key")}`}> </iframe>
+            <iframe scrolling="no" width={800} style={{border:"1px solid azure", borderRadius:"5px"}} height={gameChatHeight} ref={chatRef} onMouseOver={applyStylesOver} onLoad={applyStylesOut} onMouseOut={applyStylesOut} src={`https://magix.apps-de-cours.com/server/chat/${localStorage.getItem("key")}`}> </iframe>
           </div>
 
 

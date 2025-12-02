@@ -18,14 +18,16 @@
 }
 
 .game-chat {
-    bottom: 0;
+    bottom: 2vh;
     right: 30vw ;
     position: absolute; 
     z-index: 2;
+    transition: transform ease 1500ms;
+
 }
 
-.game-chat iframe {
-    overflow: hidden;      
+.game-chat:hover {
+  transform: translate(0, -20px);
 }
 
 
