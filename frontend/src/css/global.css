@@ -13,7 +13,16 @@
   background: linear-gradient(145deg, #3a3a3a, #2c2c2c);
   border-radius: 16px;
   padding: 12px;
+  transition: transform ease 500ms;
   box-shadow: 0 8px 18px rgba(0,0,0,0.35);
+}
+
+.container:hover {
+  transform: translate(0, -10px);
+}
+
+.container:active {
+  border: 3px solid red;
 }
 
 .badge {
@@ -42,7 +51,7 @@
   border-radius: 12px;
   object-fit: cover;
   box-shadow: 0 4px 12px rgba(0,0,0,0.4);
-  width: 150px; 
+  width: 130px; 
 }
 
 .card p {

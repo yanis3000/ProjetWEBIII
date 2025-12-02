@@ -1,6 +1,6 @@
 import '../css/global.css'
 
-export default function MyCard({description="", hp="", atk="", cost=""}) {
+export default function MyCard({image= "", description="", hp="", atk="", cost=""}) {
   return (
     <div className='container'>
       <div className='badge'>
@@ -9,7 +9,7 @@ export default function MyCard({description="", hp="", atk="", cost=""}) {
       <div className='card'>
         <div className="card-img-container">
           <img 
-            src={"https://upload.wikimedia.org/wikipedia/commons/3/3a/Cat03.jpg"} // assigner une image apres 
+            src={image} // assigner une image apres 
             alt={"Pas d'image assignée"} 
           ></img>
         </div>

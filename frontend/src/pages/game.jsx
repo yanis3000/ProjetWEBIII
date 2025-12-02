@@ -39,6 +39,20 @@ export default function Game() {
 
   const stateTimeout = useRef(null);
 
+  const gif = [
+    "../src/images/gif/cost1.gif", // pour les cartes qui commencent a 0
+    "../src/images/gif/cost1.gif",
+    "../src/images/gif/cost2.gif",
+    "../src/images/gif/cost3.gif",
+    "../src/images/gif/cost4.gif",
+    "../src/images/gif/cost5.gif",
+    "../src/images/gif/cost6.gif",
+    "../src/images/gif/cost7.gif",
+    "../src/images/gif/cost8.gif",
+    "../src/images/gif/cost9.gif",
+    "../src/images/gif/cost10.gif"
+  ]
+
 
     // const deconnectionGame = e => {
     //     e.preventDefault(); 
@@ -186,7 +200,7 @@ export default function Game() {
         <div className="deckOpp">
           {oppCards.map((cardOpp) => (
             <div key={cardOpp.uid} onClick={() => handleClickOpp(cardOpp.uid)}>
-            <Cards description={cardOpp.mechanics.join("\n")} hp={cardOpp.hp} atk={cardOpp.atk} cost={cardOpp.cost}></Cards>
+            <Cards image={gif[cardOpp.cost]} description={cardOpp.mechanics.join("\n")} hp={cardOpp.hp} atk={cardOpp.atk} cost={cardOpp.cost}></Cards>
             </div>
           ))}
         </div>  
@@ -198,7 +212,7 @@ export default function Game() {
           <div className="deckBoard">
             {boardCards.map((cardBoard) => (
               <div key={cardBoard.uid} onClick={() => {handleClick(cardBoard.uid); fetchOnGoingGame("ATTACK", selfCard, selfCardOpp);}}>
-              <Cards description={cardBoard.mechanics.join("\n")} hp={cardBoard.hp} atk={cardBoard.atk} cost={cardBoard.cost}></Cards>
+              <Cards image={gif[cardBoard.cost]} description={cardBoard.mechanics.join("\n")} hp={cardBoard.hp} atk={cardBoard.atk} cost={cardBoard.cost}></Cards>
               </div>
             ))}
           </div>  
@@ -207,7 +221,7 @@ export default function Game() {
             <div className="deckHand">
               {handCards.map((cardHand) => (
                 <div key={cardHand.uid} onClick={() => {handleClick(cardHand.uid); fetchOnGoingGame("PLAY", selfCard, selfCardOpp);}}> {/*faire en sorte de faire*/}
-                <Cards description={cardHand.mechanics.join("\n")} hp={cardHand.hp} atk={cardHand.atk} cost={cardHand.cost}></Cards>
+                <Cards image={gif[cardHand.cost]} description={cardHand.mechanics.join("\n")} hp={cardHand.hp} atk={cardHand.atk} cost={cardHand.cost}></Cards>
                 </div>
               ))}
             </div>  

@@ -96,7 +96,7 @@ export default function Form() {
       <MainButton onClick={e => pveGame(e, "TRAINING")}> PvE </MainButton>
       <MainButton onClick={e => pvpGame(e, "PVP")}> PvP </MainButton>
 
-      <Cards texte="test" description="description"></Cards>
+      <Cards image="../src/images/gif/cost10.gif" texte="test" description="description"></Cards>
 
       <MapButton image="../src/images/position-marker.svg"/>
 
