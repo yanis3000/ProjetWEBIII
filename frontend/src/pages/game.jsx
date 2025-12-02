@@ -35,6 +35,8 @@ export default function Game() {
   const [selfCard,setSelfCard] = useState(null) // pour mettre la carte que l'on va jouer
   const [selfCardOpp,setSelfCardOpp] = useState(0) // pour mettre la carte que l'on va jouer
 
+  const [gameChatHeight, setGameChatHeight] = useState(50)
+
   // changer cela pour un let
 
   const stateTimeout = useRef(null);
@@ -60,24 +62,50 @@ export default function Game() {
 
     const chatRef = useRef(null);
 
-    const applyStyles = ()=> {
+    const applyStylesOver = ()=> {
       let styles = {
-        backgroundColor : "rgba(87, 41, 5, 0.2)",
-        fontSize : "15px",
-        hideIcons : false,
+        scrolling:"no",        
+        backgroundColor : "rgba(255,255, 255, .2)",
+        fontSize : "20px",
+        hideIcons : true,
         inputBackgroundColor : "black",
         inputFontColor : "white",
-        height : "50px",
+        height : "240px",
         padding: "5px",
+        transition: "all is ease",      
         memberListFontColor : "#000000",
         memberListBackgroundColor : "white",
         hideScrollBar: true, // pour cacher le scroll bar
       }
+
+      setGameChatHeight(240)
       
       setTimeout(() => {
         chatRef.current.contentWindow.postMessage(JSON.stringify(styles), "*");	
     }, 100);
     }
+
+    const applyStylesOut = ()=> {
+      let styles = {
+        backgroundColor : "rgba(255,255, 255, .2)",
+        fontSize : "20px",
+        hideIcons : true,
+        inputBackgroundColor : "black",
+        inputFontColor : "white",
+        height : "240px",
+        padding: "5px",
+        memberListFontColor : "#000000",
+        memberListBackgroundColor : "white",
+        hideScrollBar: true, // pour cacher le scroll bar
+      }
+
+      setGameChatHeight(80)
+      
+      setTimeout(() => {
+        chatRef.current.contentWindow.postMessage(JSON.stringify(styles), "*");	
+    }, 100);
+    }
+
 
     
     const fetchOnGoingGame = (param, uid, targetuid) => {
@@ -278,15 +306,16 @@ export default function Game() {
               <MainButton onClick={() => fetchOnGoingGame("HERO_POWER",  selfCard, selfCardOpp)}>HERO POWER</MainButton>
             </div>
 
-            <iframe width={700} height={60} ref={chatRef} onLoad={applyStyles} src={`https://magix.apps-de-cours.com/server/chat/${localStorage.getItem("key")}`}> </iframe>
+            <div className="elem-info-self">
+              <UiElement texte={selfHP} image='../src/images/heart-beats.svg'></UiElement>
+              <UiElement texte={selfMP} image='../src/images/round-potion.svg'></UiElement>
+              <UiElement texte={selfRemainingCardsCount} image='../src/images/cardboard-box.svg'></UiElement>
+            </div>
 
-
-          <div className="elem-info-self">
-            <UiElement texte={selfHP} image='../src/images/heart-beats.svg'></UiElement>
-            <UiElement texte={selfMP} image='../src/images/round-potion.svg'></UiElement>
-            <UiElement texte={selfRemainingCardsCount} image='../src/images/cardboard-box.svg'></UiElement>
           </div>
 
+          <div className="game-chat">
+            <iframe scrolling="no" width={700} height={gameChatHeight} ref={chatRef} onMouseOver={applyStylesOver} onLoad={applyStylesOut} onMouseOut={applyStylesOut} src={`https://magix.apps-de-cours.com/server/chat/${localStorage.getItem("key")}`}> </iframe>
           </div>
 
 
