@@ -341,7 +341,7 @@ export default function Game() {
           </div>
 
           <div className="game-chat">
-            <iframe scrolling="no" width={800} style={{border:"1px solid azure", borderRadius:"5px"}} height={gameChatHeight} ref={chatRef} onMouseOver={applyStylesOver} onLoad={applyStylesOut} onMouseOut={applyStylesOut} src={`https://magix.apps-de-cours.com/server/chat/${localStorage.getItem("key")}`}> </iframe>
+            <iframe scrolling="no" width={800} placeholder="Chat" style={{border:"1px solid azure", borderRadius:"5px"}} height={gameChatHeight} ref={chatRef} onMouseClick={applyStylesOver} onLoad={applyStylesOut} onMouseOut={applyStylesOut} src={`https://magix.apps-de-cours.com/server/chat/${localStorage.getItem("key")}`}> </iframe>
           </div>
 
 
@@ -353,7 +353,15 @@ export default function Game() {
   else { return( 
     <>
 
-    {messageGame.current}
+
+    <div className="flex flex-col h-screen my-auto items-center justify-center bgimg bg-cover text-7xl">
+      <p>{messageGame.current}</p>
+    </div>
+    {/* {messageGame.current == "Vous avez perdu la partie"  (
+        
+    )
+
+    } */}
 
 
   </>

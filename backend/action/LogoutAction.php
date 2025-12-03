@@ -24,7 +24,7 @@
 			else if ($result == "SIGNED_OUT") {
 				$response = [
 					"success" => true,
-					"key" => $result->NULL
+					"key" => null
 				];
 			}
 

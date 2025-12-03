@@ -29,9 +29,9 @@ export default function Form() {
             .then (response => response.json())
             .then(data => {
               if (data.response.success) {
+                navigate("/");
                 console.log("Déconnexion réussie !");
                 localStorage.removeItem("key");
-                navigate("/");
               }
               else {
               console.log("Erreur de déconnexion"); 
