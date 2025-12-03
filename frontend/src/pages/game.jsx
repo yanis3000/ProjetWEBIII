@@ -20,6 +20,9 @@ export default function Game() {
   const [oppUsername,setOppUsername] = useState(null)
   const [oppHeroClass,setOppHeroClass] = useState(null)
 
+  const activeGame = useRef(false)
+  const messageGame = useRef(null)
+
   const [oppCards, setOppCards] = useState([]); // pour faire une liste nulle
   const [oppHP,setOppHP] = useState(null)
   const [oppMP,setOppMP] = useState(null)
@@ -42,18 +45,34 @@ export default function Game() {
   const stateTimeout = useRef(null);
 
   const gif = [
-    "../src/images/gif/cost1.gif", // pour les cartes qui commencent a 0
-    "../src/images/gif/cost1.gif",
-    "../src/images/gif/cost2.gif",
-    "../src/images/gif/cost3.gif",
-    "../src/images/gif/cost4.gif",
-    "../src/images/gif/cost5.gif",
-    "../src/images/gif/cost6.gif",
-    "../src/images/gif/cost7.gif",
-    "../src/images/gif/cost8.gif",
-    "../src/images/gif/cost9.gif",
-    "../src/images/gif/cost10.gif"
+    "../src/images/image-gif/cost1.gif", // pour les cartes qui commencent a 0
+    "../src/images/image-gif/cost1.gif",
+    "../src/images/image-gif/cost2.gif",
+    "../src/images/image-gif/cost3.gif",
+    "../src/images/image-gif/cost4.gif",
+    "../src/images/image-gif/cost5.gif",
+    "../src/images/image-gif/cost6.gif",
+    "../src/images/image-gif/cost7.gif",
+    "../src/images/image-gif/cost8.gif",
+    "../src/images/image-gif/cost9.gif",
+    "../src/images/image-gif/cost10.gif"
   ]
+
+  const png = [
+    "../src/images/image-png/cost1.png",
+    "../src/images/image-png/cost1.png",
+    "../src/images/image-png/cost2.png",
+    "../src/images/image-png/cost3.png",
+    "../src/images/image-png/cost4.png",
+    "../src/images/image-png/cost5.png",
+    "../src/images/image-png/cost6.png",
+    "../src/images/image-png/cost7.png",
+    "../src/images/image-png/cost8.png",
+    "../src/images/image-png/cost9.png",
+    "../src/images/image-png/cost10.png"
+  ]
+
+
 
 
     // const deconnectionGame = e => {
@@ -66,7 +85,7 @@ export default function Game() {
       setGameChatHeight(240)
       let styles = {
         backgroundColor : "rgba(255,255, 255, .4)",
-        fontSize : "23px",
+        fontSize : "20px",
         hideIcons : false,
         inputBackgroundColor : "black",
         inputFontColor : "white",
@@ -151,20 +170,24 @@ export default function Game() {
             body : formData
           })
        .then(response => response.json())
-       .then(response => {
+       .then(data => {
 
-          if (response.result) {
-            setRemainingTurnTime(response.result.remainingTurnTime);
-            setSelfUsername(response.result.username)
-            setHeroClass(response.result.heroClass)
-            setSelfHP(response.result.hp)
-            setSelfMP(response.result.mp)
-            setSelfHandSize(response.result.handSize)
-            setSelfRemainingCardsCount(response.result.remainingCardsCount)
+        data.response.message != null ? activeGame.current = false : activeGame.current = true 
+
+        messageGame.current = data.response.message
+
+          if (data.response) {
+            setRemainingTurnTime(data.response.remainingTurnTime);
+            setSelfUsername(data.response.username)
+            setHeroClass(data.response.heroClass)
+            setSelfHP(data.response.hp)
+            setSelfMP(data.response.mp)
+            setSelfHandSize(data.response.handSize)
+            setSelfRemainingCardsCount(data.response.remainingCardsCount)
           }
 
-          if (response.result && response.result.hand) {
-              const list = response.result.hand.map(card => ({
+          if (data.response && data.response.hand) {
+              const list = data.response.hand.map(card => ({
                 uid: card.uid,
                 id: card.id,
                 cost: card.cost,
@@ -176,8 +199,8 @@ export default function Game() {
               setHandCards(list);
             }
 
-            if (response.result && response.result.board) {
-              const list = response.result.board.map(card => ({
+            if (data.response && data.response.board) {
+              const list = data.response.board.map(card => ({
                 uid: card.uid,
                 id: card.id,
                 cost: card.cost,
@@ -190,17 +213,17 @@ export default function Game() {
 
             }
 
-          if (response.result.opponent) {
-            setOppUsername(response.result.opponent.username)
-            setOppHeroClass(response.result.opponent.heroClass)
-            setOppHP(response.result.opponent.hp)
-            setOppMP(response.result.opponent.mp)
-            setOppHandSize(response.result.opponent.handSize)
-            setOppRemainingCardsCount(response.result.opponent.remainingCardsCount)
+          if (data.response.opponent) {
+            setOppUsername(data.response.opponent.username)
+            setOppHeroClass(data.response.opponent.heroClass)
+            setOppHP(data.response.opponent.hp)
+            setOppMP(data.response.opponent.mp)
+            setOppHandSize(data.response.opponent.handSize)
+            setOppRemainingCardsCount(data.response.opponent.remainingCardsCount)
           }
 
-          if (response.result.opponent && response.result.opponent.board) {
-              const list = response.result.opponent.board.map(card => ({
+          if (data.response.opponent && data.response.opponent.board) {
+              const list = data.response.opponent.board.map(card => ({
                 uid: card.uid,
                 id: card.id,
                 cost: card.cost,
@@ -214,8 +237,8 @@ export default function Game() {
 
 
 
-          setRemainingTurnTime(response.result.remainingTurnTime); 
-          console.log(response) // <-- État du jeu, ou message comme : LAST_GAME_WON
+          setRemainingTurnTime(data.response.remainingTurnTime); 
+          console.log(data.response)
           stateTimeout.current = setTimeout(fetchState, 2000);
        });
   }
@@ -230,9 +253,8 @@ export default function Game() {
 
     const navigate = useNavigate();
 
-  return (
+  if (activeGame.current) { return (
     <>
-
       <video
         autoPlay
         muted
@@ -257,13 +279,17 @@ export default function Game() {
           </div>
         </div>
 
+
         <div className="deckOpp">
           {oppCards.map((cardOpp) => (
             <div key={cardOpp.uid} onClick={() => handleClickOpp(cardOpp.uid)}>
-            <Cards image={gif[cardOpp.cost]} description={cardOpp.mechanics.join("\n")} hp={cardOpp.hp} atk={cardOpp.atk} cost={cardOpp.cost}></Cards>
+            <Cards gif={gif[cardOpp.cost]} png={png[cardOpp.cost]} description={cardOpp.mechanics.join("\n")} hp={cardOpp.hp} atk={cardOpp.atk} cost={cardOpp.cost}></Cards>
             </div>
           ))}
         </div>  
+
+          
+
           {/* <h1 style={{color:"red"}}>Opposant</h1> */}
           <div className="time">
               <UiElement texte={remainingTurnTime} image='../src/images/stopwatch.svg'></UiElement>  
@@ -272,7 +298,7 @@ export default function Game() {
           <div className="deckBoard">
             {boardCards.map((cardBoard) => (
               <div key={cardBoard.uid} onClick={() => {handleClick(cardBoard.uid); fetchOnGoingGame("ATTACK", selfCard, selfCardOpp);}}>
-              <Cards image={gif[cardBoard.cost]} description={cardBoard.mechanics.join("\n")} hp={cardBoard.hp} atk={cardBoard.atk} cost={cardBoard.cost}></Cards>
+              <Cards gif={gif[cardBoard.cost]} png={png[cardBoard.cost]} description={cardBoard.mechanics.join("\n")} hp={cardBoard.hp} atk={cardBoard.atk} cost={cardBoard.cost}></Cards>
               </div>
             ))}
           </div>  
@@ -281,7 +307,7 @@ export default function Game() {
             <div className="deckHand">
               {handCards.map((cardHand) => (
                 <div key={cardHand.uid} onClick={() => {handleClick(cardHand.uid); fetchOnGoingGame("PLAY", selfCard, selfCardOpp);}}> {/*faire en sorte de faire*/}
-                <Cards image={gif[cardHand.cost]} description={cardHand.mechanics.join("\n")} hp={cardHand.hp} atk={cardHand.atk} cost={cardHand.cost}></Cards>
+                <Cards gif={gif[cardHand.cost]} png={png[cardHand.cost]} description={cardHand.mechanics.join("\n")} hp={cardHand.hp} atk={cardHand.atk} cost={cardHand.cost}></Cards>
                 </div>
               ))}
             </div>  
@@ -322,5 +348,15 @@ export default function Game() {
     </div>
 
     </>
-  );
+  ); }
+
+  else { return( 
+    <>
+
+    {messageGame.current}
+
+
+  </>
+  )}
+
 }

@@ -14,37 +14,36 @@
 			
 			$result = parent::callAPI("games/state", $data);
 
-			return compact("result");
+			if ($result == "WAITING") {
+				$response = [
+					"messsage" => "En attente d'un adversaire",
+				];
+			}
 
-		// cause we never know !
-
-		// 	if ($result == "WAITING") {
-		// 		$response = [
-		// 			"ongoing" => "WAITING",
-		// 		];
-		// 	}
-
-		// 	elseif ($result == "LAST_GAME_WON") {
-		// 		$response = [
-		// 			"ongoing" => "GAME WON",
-		// 		];
-		// 	}			
+			elseif ($result == "LAST_GAME_WON") {
+				$response = [
+					"message" => "Vous avez gagné la partie !",
+				];
+			}			
             
-        //     elseif ($result == "LAST_GAME_LOST") {
-		// 		$response = [
-		// 			"ongoing" => "GAME LOST",
-		// 		];
-		// 	}
+            elseif ($result == "LAST_GAME_LOST") {
+				$response = [
+					"message" => "Vous avez perdu la partie.",
+				];
+			}
 
-		// 	else {
-		// 		$response = [
-		// 			$result
-		// 		];
-		// 	}
+			elseif ($result == "INVALID_KEY") {
+				$response = [
+					"message" => "Clé invalide",
+				];
+			}
 
-		// 	header("Content-Type: application/json");
-		// 	echo json_encode($response);
-		// 	exit;
+			else {
+				$response = $result;
+			}
+
+			return compact("response");
+
 		}
 
 
