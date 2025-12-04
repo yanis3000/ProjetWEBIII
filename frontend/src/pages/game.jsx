@@ -361,7 +361,13 @@ export default function Game() {
 
     <div className="flex flex-col h-screen my-auto items-center justify-center bgimg bg-cover text-7xl">
       <p>{messageGame.current}</p>
-      <MainButton onClick={()=> navigate("/form")}>Test</MainButton>
+
+      {console.log(messageGame.current)}
+
+      <img src={messageGame.current === "Vous avez gagné la partie !" ? "../src/images/grey-9026.gif" : null}
+      ></img>
+
+      <MainButton onClick={()=> navigate("/form")}>Retour au menu lobby</MainButton>
     </div>
     {/* {messageGame.current == "Vous avez perdu la partie"  (
         

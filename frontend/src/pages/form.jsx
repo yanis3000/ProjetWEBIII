@@ -98,6 +98,8 @@ export default function Form() {
           <MapButton className="logout" onClick={e => deconnectionGame(e)}/>
           <MapButton className="pratique" onClick={e => pveGame(e, "TRAINING")}/>
           <MapButton className="jouer" onClick={e => pvpGame(e, "PVP")}/>
+          <MapButton className="deck" onClick={ () => navigate("/deck")}/>
+          <MapButton className="chat" onClick={ () => navigate("/notes")}/>
       </div>
 
       {/* <MainButton onClick={e => deconnectionGame(e)}> Déconnexion </MainButton>
@@ -113,10 +115,9 @@ export default function Form() {
       <ButtonEnd children={"test"} color="indigo"></ButtonEnd> */}
 
 
-
-      {/* <iframe width={700} height={240} src={`https://magix.apps-de-cours.com/server/chat/${localStorage.getItem("key")}`}> </iframe>
-
-      <iframe width={700} height={240} src={`"https://magix.apps-de-cours.com/server/deck/${localStorage.getItem("key")}`}></iframe> */}
+      <div style={{position:"absolute", zIndex:2, bottom:"5vh", right:"2vw"}}>
+        <iframe width={700} height={240} style={{backgroundColor:"white", borderRadius:"15px"}} src={`https://magix.apps-de-cours.com/server/chat/${localStorage.getItem("key")}`}> </iframe>
+      </div>
     </>
   );
 }
