@@ -5,6 +5,7 @@ import '../css/game.css';
 import { data, useNavigate } from "react-router"; 
 import MainButton from '../components/button'; 
 import Cards from '../components/cards'; 
+import ButtonEnd from '../components/buttonEnd'; 
 import UiElement from "../components/uiElement";
 
 export default function Game() {
@@ -22,6 +23,7 @@ export default function Game() {
 
   const activeGame = useRef(false)
   const messageGame = useRef(null)
+  const yourTurnGame = useRef(null)
 
   const [oppCards, setOppCards] = useState([]); // pour faire une liste nulle
   const [oppHP,setOppHP] = useState(null)
@@ -38,7 +40,9 @@ export default function Game() {
   const [selfCard,setSelfCard] = useState(null) // pour mettre la carte que l'on va jouer
   const [selfCardOpp,setSelfCardOpp] = useState(0) // pour mettre la carte que l'on va jouer
 
-  const [gameChatHeight, setGameChatHeight] = useState(50)
+  const [gameChatHeight, setGameChatHeight] = useState(60)
+
+
 
   // changer cela pour un let
 
@@ -84,38 +88,37 @@ export default function Game() {
     const applyStylesOver = ()=> {
       setGameChatHeight(240)
       let styles = {
-        backgroundColor : "rgba(255,255, 255, .4)",
+        memberListFontColor : "#FFFFFF",
+        memberListBackgroundColor : "black",
+        backgroundColor : "rgba(255,255, 255, 0.5)",
         fontSize : "20px",
         hideIcons : false,
-        inputBackgroundColor : "black",
+        inputBackgroundColor : "rgba(255,255, 255, 0.5)",
         inputFontColor : "white",
         height : "240px",
         padding: "5px",
         border: "none",
         transition: "all is ease",      
-        memberListFontColor : "#000000",
-        memberListBackgroundColor : "white",
         hideScrollBar: true, // pour cacher le scroll bar
       }
 
-      
       setTimeout(() => {
         chatRef.current.contentWindow.postMessage(JSON.stringify(styles), "*");	
     }, 100);
     }
 
     const applyStylesOut = ()=> {
-      setGameChatHeight(50)
+      setGameChatHeight(60)
       let styles = {
-        backgroundColor : "rgba(255,255, 255, .4)",
-        fontSize : "23px",
+        memberListFontColor : "#000000",
+        memberListBackgroundColor : "black",
+        backgroundColor : "rgba(255,255, 255, 0)",
+        fontSize : "20px",
         hideIcons : false,
-        inputBackgroundColor : "black",
+        inputBackgroundColor : "rgba(255,255, 255, 0.5)",
         inputFontColor : "white",
         height : "240px",
         padding: "5px",
-        memberListFontColor : "none",
-        memberListBackgroundColor : "none",
         hideScrollBar: true, // pour cacher le scroll bar
       }
 
@@ -173,6 +176,7 @@ export default function Game() {
        .then(data => {
 
         data.response.message != null ? activeGame.current = false : activeGame.current = true 
+        data.response.yourTurn == true ? yourTurnGame.current = true : yourTurnGame.current = false 
 
         messageGame.current = data.response.message
 
@@ -282,7 +286,7 @@ export default function Game() {
 
         <div className="deckOpp">
           {oppCards.map((cardOpp) => (
-            <div key={cardOpp.uid} onClick={() => handleClickOpp(cardOpp.uid)}>
+            <div key={cardOpp.uid} onClick={() => {handleClickOpp(cardOpp.uid)}} style={{borderBottom: selfCardOpp == cardOpp.uid ? "2px solid darkred" : null, borderRadius:"16px", transitionDuration:"200ms"}}>
             <Cards gif={gif[cardOpp.cost]} png={png[cardOpp.cost]} description={cardOpp.mechanics.join("\n")} hp={cardOpp.hp} atk={cardOpp.atk} cost={cardOpp.cost}></Cards>
             </div>
           ))}
@@ -297,17 +301,18 @@ export default function Game() {
 
           <div className="deckBoard">
             {boardCards.map((cardBoard) => (
-              <div key={cardBoard.uid} onClick={() => {handleClick(cardBoard.uid); fetchOnGoingGame("ATTACK", selfCard, selfCardOpp);}}>
-              <Cards gif={gif[cardBoard.cost]} png={png[cardBoard.cost]} description={cardBoard.mechanics.join("\n")} hp={cardBoard.hp} atk={cardBoard.atk} cost={cardBoard.cost}></Cards>
+              <div key={cardBoard.uid} onClick={() => {handleClick(cardBoard.uid); fetchOnGoingGame("ATTACK", selfCard, selfCardOpp)}} style={{borderBottom: selfCard == cardBoard.uid ? "2px solid darkblue" : null, borderRadius:"16px", transitionDuration:"200ms"}}>
+              <Cards gif={gif[cardBoard.cost]} png={png[cardBoard.cost]} description={cardBoard.mechanics.join("\n")} hp={cardBoard.hp} atk={cardBoard.atk} cost={cardBoard.cost} color="sepia(100%) saturate(300%) brightness(60%) hue-rotate(180deg)"></Cards>
               </div>
             ))}
           </div>  
 
-          <div className="self-container">
-            <div className="deckHand">
-              {handCards.map((cardHand) => (
-                <div key={cardHand.uid} onClick={() => {handleClick(cardHand.uid); fetchOnGoingGame("PLAY", selfCard, selfCardOpp);}}> {/*faire en sorte de faire*/}
-                <Cards gif={gif[cardHand.cost]} png={png[cardHand.cost]} description={cardHand.mechanics.join("\n")} hp={cardHand.hp} atk={cardHand.atk} cost={cardHand.cost}></Cards>
+
+          <div className="self-container" style={{backgroundColor: yourTurnGame.current ? "rgb(0, 255, 0, 0.2)" : "rgb(255, 0, 0, 0.2)"}}>
+                <div className="deckHand">
+                  {handCards.map((cardHand) => (
+                    <div key={cardHand.uid} onClick={() => {handleClick(cardHand.uid); fetchOnGoingGame("PLAY", selfCard, selfCardOpp);}} style={{borderBottom: selfCard == cardHand.uid ? "2px solid darkblue" : null, borderRadius:"16px", transitionDuration:"200ms"}}> {/*faire en sorte de faire*/}
+                    <Cards gif={gif[cardHand.cost]} png={png[cardHand.cost]} description={cardHand.mechanics.join("\n")} hp={cardHand.hp} atk={cardHand.atk} cost={cardHand.cost} color="sepia(100%) saturate(300%) brightness(60%) hue-rotate(180deg)"></Cards>
                 </div>
               ))}
             </div>  
@@ -327,9 +332,9 @@ export default function Game() {
         
           <div className="info">
             <div>
-              <MainButton onClick={() => fetchOnGoingGame("END_TURN", selfCard, selfCardOpp)}>END TURN</MainButton> 
-              <MainButton onClick={() => fetchOnGoingGame("SURRENDER", selfCard, selfCardOpp)}>SURRENDER</MainButton>
-              <MainButton onClick={() => fetchOnGoingGame("HERO_POWER",  selfCard, selfCardOpp)}>HERO POWER</MainButton>
+              <ButtonEnd onClick={() => fetchOnGoingGame("END_TURN", selfCard, selfCardOpp)} color="blue">END TURN</ButtonEnd> 
+              <ButtonEnd onClick={() => fetchOnGoingGame("SURRENDER", selfCard, selfCardOpp)} color="indigo">SURRENDER</ButtonEnd>
+              <ButtonEnd onClick={() => fetchOnGoingGame("HERO_POWER",  selfCard, selfCardOpp)} color="teal">HERO POWER</ButtonEnd>
             </div>
 
             <div className="elem-info-self">
@@ -341,7 +346,7 @@ export default function Game() {
           </div>
 
           <div className="game-chat">
-            <iframe scrolling="no" width={800} placeholder="Chat" style={{border:"1px solid azure", borderRadius:"5px"}} height={gameChatHeight} ref={chatRef} onMouseClick={applyStylesOver} onLoad={applyStylesOut} onMouseOut={applyStylesOut} src={`https://magix.apps-de-cours.com/server/chat/${localStorage.getItem("key")}`}> </iframe>
+            <iframe scrolling="no" width={700} placeholder="Chat" style={{border:"1px solid azure", borderRadius:"5px"}} height={gameChatHeight} ref={chatRef} onMouseOver={applyStylesOver} onLoad={applyStylesOut} onMouseOut={applyStylesOut} src={`https://magix.apps-de-cours.com/server/chat/${localStorage.getItem("key")}`}> </iframe>
           </div>
 
 
@@ -356,6 +361,7 @@ export default function Game() {
 
     <div className="flex flex-col h-screen my-auto items-center justify-center bgimg bg-cover text-7xl">
       <p>{messageGame.current}</p>
+      <MainButton onClick={()=> navigate("/form")}>Test</MainButton>
     </div>
     {/* {messageGame.current == "Vous avez perdu la partie"  (
         

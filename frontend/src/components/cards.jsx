@@ -2,7 +2,7 @@ import '../css/global.css'
 import { useEffect, useState, useRef } from "react";
 
 
-export default function MyCard({gif, png, description="", hp="", atk="", cost="", color="sepia(100%) saturate(300%) brightness(80%) hue-rotate(300deg)"}) {
+export default function MyCard({gif, png, description="", hp="", atk="", cost="", color="sepia(100%) saturate(300%) brightness(60%) hue-rotate(300deg)"}) {
 
   const [photo, setPhoto] = useState(png)
 

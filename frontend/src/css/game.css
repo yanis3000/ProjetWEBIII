@@ -4,7 +4,7 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  object-fit: cover;        /* Très important */
+  object-fit: cover;    
   z-index: -1;      
 }
 
@@ -13,12 +13,12 @@
     display: flex;
     flex-direction: column;
     width: 100vw;
-    height: 100vh; /* IMPORTANT */
-    overflow: hidden; /* EMPÊCHE LE SCROLL DANS LE LAYOUT */
+    height: 100vh;
+    overflow: hidden; 
 }
 
 .game-chat {
-    bottom: 2vh;
+    bottom: 1.5dvh;
     right: 30vw ;
     position: absolute; 
     z-index: 2;
@@ -27,7 +27,7 @@
 }
 
 .game-chat:hover {
-  transform: translate(0, -20px);
+  transform: translate(0, -5px);
 }
 
 
@@ -54,8 +54,7 @@
     gap : 1em;
     border-radius: 25px;
     background-color: rgb(222, 238, 238, 0.05);
-    margin : 5px 5vw;
-    
+    margin : 5px 5vw;  
 }
 
 .time {
@@ -83,7 +82,7 @@
     justify-content: center;
     gap : 1em;
     justify-items: end;
-    margin-top: auto;  /* <-- pousser vers le bas */
+    margin-top: auto;  
     background-color: rgb(222, 238, 238, 0.05);
 }
 

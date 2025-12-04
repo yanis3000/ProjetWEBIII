@@ -7,6 +7,8 @@ import Game from './pages/game.jsx'
 import MovingSquare from './pages/square.jsx'
 import Test from './pages/test.jsx'
 import Notes from './pages/notes.jsx'
+import Deck from './pages/deck.jsx'
+
 
 
 createRoot(document.getElementById('root')).render(
@@ -18,6 +20,7 @@ createRoot(document.getElementById('root')).render(
             <Route path="/square" element={<MovingSquare />} />
             <Route path="/test" element={<Test />} />
             <Route path="/notes" element={<Notes />} />
+            <Route path="/deck" element={<Deck />} />
         </Routes>
     </BrowserRouter>
 )

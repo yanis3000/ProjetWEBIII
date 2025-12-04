@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import '../css/global.css'; 
 import '../css/lobby.css'; 
+import '../css/test.css'; 
 import { data, useNavigate } from "react-router"; 
 import MainButton from '../components/button'; 
+import ButtonEnd from '../components/buttonEnd'; 
 import Cards from '../components/cards'; 
 import MapButton from '../components/mapButton'; 
 import UiElement from '../components/uiElement'; 
@@ -90,9 +92,15 @@ export default function Form() {
 
   return (
     <>
-      <p>Vous êtes enfin connecté !</p>
 
-      <MainButton onClick={e => deconnectionGame(e)}> Déconnexion </MainButton>
+
+      <div className='background'>
+          <MapButton className="logout" onClick={e => deconnectionGame(e)}/>
+          <MapButton className="pratique" onClick={e => pveGame(e, "TRAINING")}/>
+          <MapButton className="jouer" onClick={e => pvpGame(e, "PVP")}/>
+      </div>
+
+      {/* <MainButton onClick={e => deconnectionGame(e)}> Déconnexion </MainButton>
       <MainButton onClick={e => pveGame(e, "TRAINING")}> PvE </MainButton>
       <MainButton onClick={e => pvpGame(e, "PVP")}> PvP </MainButton>
 
@@ -102,11 +110,13 @@ export default function Form() {
 
       <UiElement texte="test" image={heart} />
 
+      <ButtonEnd children={"test"} color="indigo"></ButtonEnd> */}
 
 
-      <iframe width={700} height={240} src={`https://magix.apps-de-cours.com/server/chat/${localStorage.getItem("key")}`}> </iframe>
 
-      <iframe width={700} height={240} src={`"https://magix.apps-de-cours.com/server/deck/${localStorage.getItem("key")}`}></iframe>
+      {/* <iframe width={700} height={240} src={`https://magix.apps-de-cours.com/server/chat/${localStorage.getItem("key")}`}> </iframe>
+
+      <iframe width={700} height={240} src={`"https://magix.apps-de-cours.com/server/deck/${localStorage.getItem("key")}`}></iframe> */}
     </>
   );
 }
