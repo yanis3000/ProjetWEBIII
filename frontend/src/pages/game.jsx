@@ -36,6 +36,7 @@ export default function Game() {
   const [selfMP,setSelfMP] = useState(null)
   const [selfHandSize,setSelfHandSize] = useState(null)
   const [selfRemainingCardsCount, setSelfRemainingCardsCount] = useState(null)
+  const [messageAction, setMessageAction] = useState(null)
 
   const [selfCard,setSelfCard] = useState(null) // pour mettre la carte que l'on va jouer
   const [selfCardOpp,setSelfCardOpp] = useState(0) // pour mettre la carte que l'on va jouer
@@ -90,18 +91,19 @@ export default function Game() {
     const applyStylesOver = ()=> {
       setGameChatHeight(240)
       let styles = {
-        memberListFontColor : "#FFFFFF",
-        memberListBackgroundColor : "black",
-        backgroundColor : "rgba(255,255, 255, 0.5)",
-        fontSize : "20px",
-        hideIcons : false,
-        inputBackgroundColor : "rgba(255,255, 255, 0.5)",
-        inputFontColor : "white",
-        height : "240px",
-        padding: "5px",
-        border: "none",
-        transition: "all is ease",      
-        hideScrollBar: true, // pour cacher le scroll bar
+            memberListFontColor : "#FFFFFF",
+            memberListBackgroundColor : "black",
+            backgroundColor : "rgba(0,0,0, 0.5)",
+            fontSize : "20px",
+            fontColor: "white",
+            hideIcons : false,
+            fontGoogleName : "Ubuntu Mono",        
+            inputBackgroundColor : "rgba(0,0,0, 0.5)",
+            inputFontColor : "white",
+            height : "240px",
+            padding: "5px",
+            border: "10px solid white",
+            hideScrollBar: true,
       }
 
       setTimeout(() => {
@@ -112,16 +114,19 @@ export default function Game() {
     const applyStylesOut = ()=> {
       setGameChatHeight(60)
       let styles = {
-        memberListFontColor : "#000000",
-        memberListBackgroundColor : "black",
-        backgroundColor : "rgba(255,255, 255, 0)",
-        fontSize : "20px",
-        hideIcons : false,
-        inputBackgroundColor : "rgba(255,255, 255, 0.5)",
-        inputFontColor : "white",
-        height : "240px",
-        padding: "5px",
-        hideScrollBar: true, // pour cacher le scroll bar
+            memberListFontColor : "#FFFFFF",
+            memberListBackgroundColor : "black",
+            backgroundColor : "rgba(0,0,0, 0.5)",
+            fontSize : "20px",
+            fontColor: "white",
+            hideIcons : false,
+            fontGoogleName : "Ubuntu Mono",        
+            inputBackgroundColor : "rgba(0,0,0, 0.5)",
+            inputFontColor : "white",
+            height : "240px",
+            padding: "5px",
+            border: "10px solid white",
+            hideScrollBar: true,
       }
 
       
@@ -147,6 +152,13 @@ export default function Game() {
        .then(response => {
 
           console.log("ENVOI À API : ", { param, uid, targetuid });
+
+          setMessageAction("'" + param + "' avec le UID '" + uid + "' sur le TARGETUID '" + targetuid + "'")
+
+          setTimeout(() => {
+            setMessageAction(null)
+          }, 3000)
+
           setSelfCardOpp(0) // pour faire en sorte que le hero soit attaque par defaut
 
           if (response.success == false){
@@ -156,25 +168,12 @@ export default function Game() {
        )   
     }
 
-
-    const errMessageFunction = () => {
-      if (!yourTurnGame.current) {
-        
-        messageErr.current = setTimeout(() => {
-          messageErr.current = ("Ce n'est pas ton tour !")
-        }, 5000);
-        messageErr.current = null
-      }
-    }
-
     const handleClick = (uid) => {
-        errMessageFunction()
         setSelfCard(uid)
         console.log("Carte en cours : " + uid)
     }
 
     const handleClickOpp = (targetuid = 0) => {
-        errMessageFunction()
         setSelfCardOpp(targetuid) // if turn is true
         console.log("Carte de l'ennemi en cours : " + targetuid)
     }
@@ -284,14 +283,14 @@ export default function Game() {
           
       </video>
 
-      <div className="game-layout">
-        <div className="info">
-          <div>
-            <p>{oppUsername}</p>
-            <p>{oppHeroClass}</p>
+      <div className="game-layout relative">
+          <div className="m-auto text-center absolute z-20 top-5 bg-linear-to-bl bg-gradient-to-r from-slate-900 to-slate-700 p-4 rounded-md opacity-25 transition-opacity delay-150 duration-300 ease-in-out" style={{left:"40%"}}>
+            <p className="text-white text-3xl">{messageAction}</p>
           </div>
-          <div>
-            <p>{messageErr.current}</p>
+        <div className="info">
+          <div className="flex flex-col justify-center ml-5 text-center">
+            <p className="text-3xl">{oppUsername}</p>
+            <p>{oppHeroClass}</p>
           </div>
           <div className="elem-info-opp">
             <UiElement texte={oppHP} image='../src/images/heart-beats.svg'></UiElement>
@@ -301,36 +300,36 @@ export default function Game() {
           </div>
         </div>
 
-
-        <div className="deckOpp">
-          {oppCards.map((cardOpp) => (
-            <div key={cardOpp.uid} onClick={() => {handleClickOpp(cardOpp.uid)}} style={{borderBottom: selfCardOpp == cardOpp.uid ? "2px solid darkred" : null, borderRadius:"16px", transitionDuration:"200ms"}}>
-            <Cards gif={gif[cardOpp.cost]} png={png[cardOpp.cost]} description={cardOpp.mechanics.join("\n")} hp={cardOpp.hp} atk={cardOpp.atk} cost={cardOpp.cost}></Cards>
-            </div>
-          ))}
-        </div>  
-
-          
-
-          {/* <h1 style={{color:"red"}}>Opposant</h1> */}
-          <div className="time">
-              <UiElement texte={remainingTurnTime} image='../src/images/stopwatch.svg'></UiElement>  
-          </div> 
-
-          <div className="deckBoard">
-            {boardCards.map((cardBoard) => (
-              <div key={cardBoard.uid} onClick={() => {handleClick(cardBoard.uid); fetchOnGoingGame("ATTACK", selfCard, selfCardOpp)}} style={{borderBottom: selfCard == cardBoard.uid ? "2px solid darkblue" : null, borderRadius:"16px", transitionDuration:"200ms"}}>
-              <Cards gif={gif[cardBoard.cost]} png={png[cardBoard.cost]} description={cardBoard.mechanics.join("\n")} hp={cardBoard.hp} atk={cardBoard.atk} cost={cardBoard.cost} color="sepia(100%) saturate(300%) brightness(60%) hue-rotate(180deg)"></Cards>
+        <div className="flex flex-col justify-center">
+          <div className="deckOpp">
+            {oppCards.map((cardOpp) => (
+              <div key={cardOpp.uid} onClick={() => {handleClickOpp(cardOpp.uid)}} style={{borderBottom: selfCardOpp == cardOpp.uid ? "2px solid darkred" : null, borderRadius:"16px", transitionDuration:"200ms"}}>
+              <Cards gif={gif[cardOpp.cost]} png={png[cardOpp.cost]} description={cardOpp.mechanics.join("\n")} hp={cardOpp.hp} atk={cardOpp.atk} cost={cardOpp.cost}></Cards>
               </div>
             ))}
           </div>  
 
+            
+
+            {/* <h1 style={{color:"red"}}>Opposant</h1> */}
+            <div className="time">
+                <UiElement texte={remainingTurnTime} image='../src/images/stopwatch.svg'></UiElement>  
+            </div> 
+
+            <div className="deckBoard">
+              {boardCards.map((cardBoard) => (
+                <div key={cardBoard.uid} onClick={() => {handleClick(cardBoard.uid); fetchOnGoingGame("ATTACK", selfCard, selfCardOpp)}} style={{borderBottom: selfCard == cardBoard.uid ? "2px solid darkblue" : null, borderRadius:"16px", transitionDuration:"200ms"}}>
+                <Cards gif={gif[cardBoard.cost]} png={png[cardBoard.cost]} description={cardBoard.mechanics.join("\n")} hp={cardBoard.hp} atk={cardBoard.atk} cost={cardBoard.cost} color="sepia(100%) saturate(300%) brightness(60%) hue-rotate(180deg)"></Cards>
+                </div>
+              ))}
+            </div>  
+        </div>
 
           <div className="self-container" style={{backgroundColor: yourTurnGame.current ? "rgb(0, 255, 0, 0.2)" : "rgb(255, 0, 0, 0.2)"}}>
                 <div className="deckHand">
                   {handCards.map((cardHand) => (
                     <div key={cardHand.uid} onClick={() => {handleClick(cardHand.uid); fetchOnGoingGame("PLAY", selfCard, selfCardOpp);}} style={{borderBottom: selfCard == cardHand.uid ? "2px solid darkblue" : null, borderRadius:"16px", transitionDuration:"200ms"}}> {/*faire en sorte de faire*/}
-                    <Cards gif={gif[cardHand.cost]} png={png[cardHand.cost]} description={cardHand.mechanics.join("\n")} hp={cardHand.hp} atk={cardHand.atk} cost={cardHand.cost} color="sepia(100%) saturate(300%) brightness(60%) hue-rotate(180deg)"></Cards>
+                    <Cards gif={gif[cardHand.cost]} png={png[cardHand.cost]} description={cardHand.mechanics.join("\n")} hp={cardHand.hp} atk={cardHand.atk} cost={cardHand.cost} color="sepia(100%) saturate(300%) brightness(60%) hue-rotate(180deg)" style={cardHand.mechanics[0] == "Stealth" ||  cardHand.mechanics[0] == "Taunt" ? {border:"3px solid white"}  : null}></Cards>
                 </div>
               ))}
             </div>  
@@ -349,7 +348,7 @@ export default function Game() {
         </div>
         
           <div className="info">
-            <div>
+            <div className="ml-6 mt-6 ">
               <ButtonEnd onClick={() => fetchOnGoingGame("END_TURN", selfCard, selfCardOpp)} color="blue">END TURN</ButtonEnd> 
               <ButtonEnd onClick={() => fetchOnGoingGame("SURRENDER", selfCard, selfCardOpp)} color="indigo">SURRENDER</ButtonEnd>
               <ButtonEnd onClick={() => fetchOnGoingGame("HERO_POWER",  selfCard, selfCardOpp)} color="teal">HERO POWER</ButtonEnd>

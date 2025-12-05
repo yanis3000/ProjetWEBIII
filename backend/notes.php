@@ -1,7 +1,7 @@
 <?php
-	require_once("action/NotesAction.php");
+	require_once("action/NotesActionCopy.php");
 
-	$action = new NotesAction();
+	$action = new NotesActionCopy();
 	$data = $action->execute();
 
 

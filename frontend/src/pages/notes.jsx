@@ -6,6 +6,7 @@ import '../css/notes.css';
 
 export default function Notes() {
     const [addNotes, setAddNotes] = useState(null);
+    const [addDescription, setaddDescription] = useState(null);
     const [showNotes, setShowNotes] = useState([]);
 
     
@@ -36,6 +37,7 @@ export default function Notes() {
 
         let formData = new FormData();
         formData.append("note", addNotes)
+        formData.append("description", addDescription)
 
         fetch("/api/notes.php", {
             method: "POST",
@@ -70,14 +72,23 @@ export default function Notes() {
                         <div>
                             <h3 className="text-white text-4xl text-center">Notes</h3>
                             <div className="text">
-                                <textarea
+                                <input
                                     required
                                     placeholder="Notes"
                                     name="note"
-                                    style={{height:"20vh", width:"20vw"}}
                                     onChange={(e) => setAddNotes(e.target.value)} 
                                 />
                             </div>
+                            <div className="text">
+                                <textarea
+                                    required
+                                    placeholder="Description"
+                                    name="description"
+                                    style={{height:"20vh", width:"20vw"}}
+                                    onChange={(e) => setaddDescription(e.target.value)} 
+                                />
+                            </div>
+                            
 
                             <div className="validate">
                                 <button type="submit">Envoyer</button>
@@ -86,10 +97,13 @@ export default function Notes() {
                     </form>
 
                 <div className="flex flex-1 flex-col-reverse items-end">
-                    {showNotes.map((note) => (
-                        <div key={note.id} className="bg-black text-white p-15 m-6 rounded-lg shadow-lg border-4 border-gray-700 w-2xl">
-                            <h4>{note.id}</h4>
-                            <p>{note.notes}</p>
+                    {showNotes.map((_note) => (
+                        <div key={_note.id} className="bg-black text-white p-15 m-6 rounded-lg shadow-lg border-4 border-gray-700 w-2xl">
+                            <div className="flex justify-between">
+                                <p>{_note.notes}</p>
+                                <p>{_note.time} </p>
+                            </div>
+                            <p>{_note.description}</p>
                         </div>
                     ))} 
                 </div>
