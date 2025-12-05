@@ -116,7 +116,7 @@ export default function Programs({}) {
             </div>
 
                 <div style={{position: "absolute", top: 0, right: 0, width: "100vw", height: "100vh", zIndex: formActivate}}>
-                    <form className="rounded-lg"action="" onSubmit={e => handleAddProgram(e)}>
+                    <form className="form-index rounded-lg" action="" onSubmit={e => handleAddProgram(e)}>
                         <img className="image" src="../src/assets/STM.svg"></img>
                         <div className="text"><input placeholder="Nom d'utilisateur" value={addProgramForm.username} onChange={(e) => setAddProgramForm({...addProgramForm, username : e.target.value})} type="text" name="username"></input></div>
                         <div className="text"><input placeholder="Mot de passe" value={addProgramForm.password} onChange={(e) => setAddProgramForm({...addProgramForm, password : e.target.value})}  type="password" name="password"></input></div>

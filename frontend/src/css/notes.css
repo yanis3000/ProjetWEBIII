@@ -1,0 +1,9 @@
+.form-notes {
+    position: fixed;
+    top: 30vh;
+    left: 15vw;       /* joue avec cette valeur */
+    background-color: rgb(15, 15, 15);
+    padding: 2em;
+    z-index: 20; /* IMPORTANT */
+    border-radius: 10px;
+}
