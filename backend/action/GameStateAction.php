@@ -16,7 +16,7 @@
 
 			if ($result == "WAITING") {
 				$response = [
-					"messsage" => "En attente d'un adversaire",
+					"message" => "En attente d'un adversaire",
 				];
 			}
 

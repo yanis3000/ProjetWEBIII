@@ -1,6 +1,4 @@
 @import "tailwindcss";
-@import url('https://fonts.googleapis.com/css2?family=Jersey+10&display=swap');
-
 
 .container {
   position: relative;
@@ -110,3 +108,14 @@
     background-size: contain;
     z-index: 0;
 }
+
+.video {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;    
+  z-index: -1;      
+}
+

@@ -358,23 +358,30 @@ export default function Game() {
   else { return( 
     <>
 
+      <video
+        autoPlay
+        muted
+        loop
+        className="video"
+      >
+          <source src="../src/images/Lights-Corners-Rotating-Light-Effect-Loop.mp4" type="video/mp4" />
+          
+      </video>
 
-    <div className="flex flex-col h-screen my-auto items-center justify-center bgimg bg-cover text-7xl">
-      <p>{messageGame.current}</p>
 
-      {console.log(messageGame.current)}
+        <div className="flex flex-col text-white items-center justify-center bg-cover text-2xl gap-3.5 m-91">
+          <p>{messageGame.current}</p>
 
-      <img src={messageGame.current === "Vous avez gagné la partie !" ? "../src/images/grey-9026.gif" : null}
-      ></img>
+          {messageGame.current == "En attente d'un adversaire" && (
+            <img style={{ width: "5vw", height: "12.5svh" }} src="../src/images/grey-9026.gif"/>
+          )}
 
-      <MainButton onClick={()=> navigate("/form")}>Retour au menu lobby</MainButton>
-    </div>
-    {/* {messageGame.current == "Vous avez perdu la partie"  (
-        
-    )
+          <MainButton onClick={() => navigate("/form")}>
+            Retour au menu lobby
+          </MainButton>
 
-    } */}
 
+        </div>
 
   </>
   )}

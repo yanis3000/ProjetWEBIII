@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import '../css/global.css'; 
 import '../css/lobby.css'; 
 import '../css/test.css'; 
@@ -17,6 +17,32 @@ import marker from "../images/position-marker.svg";
 export default function Form() {
 
     const navigate = useNavigate();
+
+    const chatRef = useRef(null);
+    
+    const applyStyles = ()=> {
+      let styles = {
+        memberListFontColor : "#FFFFFF",
+        memberListBackgroundColor : "black",
+        
+        backgroundColor : "rgba(0,0,0, 0.5)",
+        fontSize : "20px",
+        fontColor: "white",
+        hideIcons : false,
+        fontGoogleName : "Ubuntu Mono",        
+        inputBackgroundColor : "rgba(0,0,0, 0.5)",
+        inputFontColor : "white",
+        height : "240px",
+        padding: "5px",
+        border: "10px solid white",
+        hideScrollBar: true,
+      }
+
+      
+      setTimeout(() => {
+        chatRef.current.contentWindow.postMessage(JSON.stringify(styles), "*");	
+    }, 100);
+    }
 
     const deconnectionGame = e => {
 
@@ -116,7 +142,7 @@ export default function Form() {
 
 
       <div style={{position:"absolute", zIndex:2, bottom:"5vh", right:"2vw"}}>
-        <iframe width={700} height={240} style={{backgroundColor:"white", borderRadius:"15px"}} src={`https://magix.apps-de-cours.com/server/chat/${localStorage.getItem("key")}`}> </iframe>
+        <iframe scrolling="no" width={700} height={240} ref={chatRef} onLoad={applyStyles} src={`https://magix.apps-de-cours.com/server/chat/${localStorage.getItem("key")}`}> </iframe>
       </div>
     </>
   );
