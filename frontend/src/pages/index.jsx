@@ -77,6 +77,7 @@ export default function Programs({}) {
             console.log(data);
             if (data.response.success === true) {
                 localStorage.setItem("key", data.response.key);
+                localStorage.setItem("username", addProgramForm.username);
                 navigate("/form");
             } else {
                 setConnectionError("Erreur : " + data.response.error);

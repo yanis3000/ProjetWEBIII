@@ -40,6 +40,8 @@ export default function Game() {
   const [selfCard,setSelfCard] = useState(null) // pour mettre la carte que l'on va jouer
   const [selfCardOpp,setSelfCardOpp] = useState(0) // pour mettre la carte que l'on va jouer
 
+  const messageErr = useRef(null)
+
   const [gameChatHeight, setGameChatHeight] = useState(60)
 
 
@@ -154,12 +156,25 @@ export default function Game() {
        )   
     }
 
+
+    const errMessageFunction = () => {
+      if (!yourTurnGame.current) {
+        
+        messageErr.current = setTimeout(() => {
+          messageErr.current = ("Ce n'est pas ton tour !")
+        }, 5000);
+        messageErr.current = null
+      }
+    }
+
     const handleClick = (uid) => {
+        errMessageFunction()
         setSelfCard(uid)
         console.log("Carte en cours : " + uid)
     }
 
     const handleClickOpp = (targetuid = 0) => {
+        errMessageFunction()
         setSelfCardOpp(targetuid) // if turn is true
         console.log("Carte de l'ennemi en cours : " + targetuid)
     }
@@ -274,6 +289,9 @@ export default function Game() {
           <div>
             <p>{oppUsername}</p>
             <p>{oppHeroClass}</p>
+          </div>
+          <div>
+            <p>{messageErr.current}</p>
           </div>
           <div className="elem-info-opp">
             <UiElement texte={oppHP} image='../src/images/heart-beats.svg'></UiElement>

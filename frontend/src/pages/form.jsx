@@ -120,7 +120,11 @@ export default function Form() {
     <>
 
 
+
       <div className='background'>
+              
+          <p className="text-3xl p-2.5 m-3 bg-black inline-block rounded-sm">Bonjour {localStorage.getItem("username")}</p>
+
           <MapButton className="logout" onClick={e => deconnectionGame(e)}/>
           <MapButton className="pratique" onClick={e => pveGame(e, "TRAINING")}/>
           <MapButton className="jouer" onClick={e => pvpGame(e, "PVP")}/>
